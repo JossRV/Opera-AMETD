@@ -534,5 +534,32 @@ class CatPersonasSeeder extends Seeder
             ['pais' => 'Zimbabue', 'descripcion' => 'Zimbabue', 'codigo' => '+263', 'estatus' => '1', 'created_at' => '2024-06-04 13:06:07', 'updated_at' => '2024-06-04 13:06:07'],
         ];
         DB::table('cat_pais')->insert($datosPaises);
+
+        // semilla excibiciones
+        $datosExcibiciones = [
+            ['excibicion' => '1 Excibición', 'descripcion' => 'Pago en una excibición', 'estatus' => 1],
+            ['excibicion' => '3 Excibiciones', 'descripcion' => 'Pago en 3 excibiciones', 'estatus' => 1],
+        ];
+        DB::table('cat_excibiciones')->insert($datosExcibiciones);
+
+        // semilla formas de pagos
+        $datosForma = [
+            [
+                'forma' => 'Transferencia o depósito',
+                'descripcion' => 'Pago por algun medio de banco',
+                'estatus' => 1,
+            ],
+            [
+                'forma' => 'Paypal',
+                'descripcion' => 'Pago con pasarela de pago paypal',
+                'estatus' => 1,
+            ],
+            [
+                'forma' => 'Tarjeta',
+                'descripcion' => 'Pago con tarjeta de credito o debito',
+                'estatus' => 2,
+            ]
+        ];
+        DB::table('cat_forma_pagos')->insert($datosForma);
     }
 }
