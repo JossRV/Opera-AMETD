@@ -15,4 +15,9 @@ class Estados extends Model
         'descripcion',
         'estatus',
     ];
+    
+    public function personas()
+    {
+        return $this->hasMany(Persona::class, 'cat_estados_id');
+    }
 }

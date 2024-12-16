@@ -14,4 +14,9 @@ class Categoria extends Model
         'descripcion',
         'estatus',
     ];
+
+    public function personas()
+    {
+        return $this->hasMany(Persona::class, 'cat_categoria_id');
+    }
 }
