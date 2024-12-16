@@ -52,25 +52,25 @@ class CatPersonasSeeder extends Seeder
         ];
         DB::table('cat_prefijos')->insert($datosPrefijos);
 
-        // semilla categorias
-        $datosCategoria = [
+        // semilla especialidades
+        $datosEspecialidad = [
             [
-                'categoria' => "Médico Especialista",
+                'especialidad' => "Médico Especialista",
                 'descripcion' => "Médico Especialista",
                 'estatus' => 1
             ],
             [
-                'categoria' => "Médico Residente",
+                'especialidad' => "Médico Residente",
                 'descripcion' => "Médico Residente",
                 'estatus' => 1
             ],
             [
-                'categoria' => "Otros profesionales de la salud",
+                'especialidad' => "Otros profesionales de la salud",
                 'descripcion' => "Médico Residente",
                 'estatus' => 1
             ],
         ];
-        DB::table('cat_categorias')->insert($datosCategoria);
+        DB::table('cat_especialidades')->insert($datosEspecialidad);
 
         // semilla genero
         $dataGenero = [
@@ -533,6 +533,13 @@ class CatPersonasSeeder extends Seeder
             ['pais' => 'Zimbabue', 'descripcion' => 'Zimbabue', 'codigo' => '+263', 'estatus' => '1', 'created_at' => '2024-06-04 13:06:07', 'updated_at' => '2024-06-04 13:06:07'],
         ];
         DB::table('cat_pais')->insert($datosPaises);
+
+        // semilla exhibiciones
+        $datosexhibiciones = [
+            ['exhibicion' => '1 Exhibición', 'descripcion' => 'Pago en una exhibición', 'estatus' => 1],
+            ['exhibicion' => '3 Exhibiciones', 'descripcion' => 'Pago en 3 exhibiciones', 'estatus' => 1],
+        ];
+        DB::table('cat_exhibiciones')->insert($datosexhibiciones);
 
         // semilla formas de pagos
         $datosForma = [
