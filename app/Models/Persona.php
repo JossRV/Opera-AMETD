@@ -51,4 +51,12 @@ class Persona extends Model
     {
         return $this->belongsTo(Estados::class, 'cat_estados_id');
     }
+    public function recibos()
+    {
+        return $this->hasMany(Recibo::class, 'persona_id');
+    }
+    public function pagos()
+    {
+        return $this->hasMany(Pago::class, 'persona_id');
+    }
 }

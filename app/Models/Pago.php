@@ -21,4 +21,25 @@ class Pago extends Model
         'comprobante',
         'formato',
     ];
+
+    public function recibo()
+    {
+        return $this->hasOne(Recibo::class, 'pagos_id');
+    }
+    public function ordenPago()
+    {
+        return $this->hasOne(OrdenPago::class, 'pago_id');
+    }
+    public function persona()
+    {
+        return $this->belongsTo(Persona::class, 'persona_id');
+    }
+    public function metodoPago()
+    {
+        return $this->belongsTo(MetodoPago::class, 'cat_metodo_pago_id');
+    }
+    public function formaPago()
+    {
+        return $this->belongsTo(FormaPago::class, 'cat_forma_pago_id');
+    }
 }
