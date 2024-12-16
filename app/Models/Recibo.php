@@ -13,7 +13,16 @@ class Recibo extends Model
         'numero',
         'folio',
         'persona_id',
-        'recibo_id',
+        'pagos_id',
         'estatus',
     ];
+
+    public function persona()
+    {
+        return $this->belongsTo(Persona::class, 'persona_id');
+    }
+    public function pago()
+    {
+        return $this->belongsTo(Pago::class, 'pagos_id');
+    }
 }

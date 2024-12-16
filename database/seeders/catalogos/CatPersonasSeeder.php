@@ -2,7 +2,6 @@
 
 namespace Database\Seeders\catalogos;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -561,5 +560,47 @@ class CatPersonasSeeder extends Seeder
             ]
         ];
         DB::table('cat_forma_pagos')->insert($datosForma);
+
+        // semilla metodos de pagos
+        $datosMetodo = [
+            [
+                'metodo' => 'Pago en linea',
+                'descripcion' => 'Pago realizado en linea',
+                'estatus' => 1,
+            ],
+            [
+                'metodo' => 'Pago en sitio',
+                'descripcion' => 'Pago realizado en sitio',
+                'estatus' => 1,
+            ]
+        ];
+        DB::table('cat_metodo_pagos')->insert($datosMetodo);
+
+        // semilla excibiciones
+        $datosExcibiciones = [
+            ['excibicion' => '1 Excibición', 'descripcion' => 'Pago en una excibición', 'estatus' => 1],
+            ['excibicion' => '3 Excibiciones', 'descripcion' => 'Pago en 3 excibiciones', 'estatus' => 1],
+        ];
+        DB::table('cat_excibiciones')->insert($datosExcibiciones);
+
+        // semilla tipos de ordenes
+        $datosTipoOrden = [
+            ['tipo' => 'Congreso', 'descripcion' => 'Para ordenes de Congreso a pagar', 'estatus' => 1],
+            ['tipo' => 'Diplomado', 'descripcion' => 'Para ordenes de Diplomado a pagar', 'estatus' => 1],
+            ['tipo' => 'Taller', 'descripcion' => 'Para ordenes de Taller a pagar', 'estatus' => 1],
+            ['tipo' => 'Afiliación', 'descripcion' => 'Para ordenes de Afiliación a pagar', 'estatus' => 1],
+            ['tipo' => 'Anualidad', 'descripcion' => 'Para ordenes de Anualidad a pagar', 'estatus' => 1],
+            ['tipo' => 'Paquete', 'descripcion' => 'Para ordenes de Paquete a pagar', 'estatus' => 1],
+            ['tipo' => 'Descuento', 'descripcion' => 'Para ordenes de Descuento a pagar', 'estatus' => 1],
+            ['tipo' => 'Promoción', 'descripcion' => 'Para ordenes de Promoción a pagar', 'estatus' => 1],
+        ];
+        DB::table('cat_tipo_ordenes')->insert($datosTipoOrden);
+
+        // semilla ordenes
+        $datosOrdenes = [
+            ['orden' => 'Diplomado 2025, 1 sola exhibición', 'descripcion' => 'Pago del octavo diplomado en una sola exhibición', 'precio_mx' => 80000, 'precio_dl' => 0, 'cat_tipo_orden_id' => 2, 'anio' => 2025, 'afiliado' => 0, 'categoria' => 1, 'estatus' => 1, 'cat_exhibiciones_id' => 1],
+            ['orden' => 'Diplomado 2025, 3 exhibiciones', 'descripcion' => 'Pago del octavo diplomado en tres exhibiciones', 'precio_mx' => 80000, 'precio_dl' => 0, 'cat_tipo_orden_id' => 2, 'anio' => 2025, 'afiliado' => 0, 'categoria' => 1, 'estatus' => 1, 'cat_exhibiciones_id' => 2],
+        ];
+        DB::table('cat_ordenes')->insert($datosOrdenes);
     }
 }

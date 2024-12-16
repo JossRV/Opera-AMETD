@@ -21,4 +21,17 @@ class Orden extends Model
         'estatus',
         'cat_excibiciones',
     ];
+
+    public function ordenPago()
+    {
+        return $this->hasOne(OrdenPago::class, 'cat_ordenes_id');
+    }
+    public function tipoOrden()
+    {
+        return $this->belongsTo(TipoOrden::class, 'cat_tipo_orden_id');
+    }
+    public function exhibicion()
+    {
+        return $this->belongsTo(Exhibicion::class, 'cat_excibiciones');
+    }
 }
