@@ -14,4 +14,9 @@ class Prefijo extends Model
         'descripcion',
         'estatus',
     ];
+
+    public function personas()
+    {
+        return $this->hasMany(Persona::class, 'cat_prefijo_id');
+    }
 }

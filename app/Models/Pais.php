@@ -15,4 +15,9 @@ class Pais extends Model
         'codigo',
         'estatus',
     ];
+
+    public function Personas()
+    {
+        return $this->hasMany(Persona::class, 'cat_pais_id');
+    }
 }
