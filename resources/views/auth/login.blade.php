@@ -38,13 +38,7 @@
             </div>
             <div class="row">
                 <div class="col-12 col-lg-6">
-                    <div class="row">
-                        <div class="col">
-                            <img src="{{ asset('/img/img-views/imglogin.png') }}" class="mb-3"
-                                style="width:60%;border-radius:5px;display:inline-block" alt="">
-                            <h6 style="font-size:25px " class="mb-3">Inicio de sesión</h6>
-                        </div>
-                    </div>
+                    <div style="font-size:25px;" class="mb-3">Inicio de sesión</div>
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
                         @method('POST')
@@ -88,7 +82,7 @@
                                         {{ old('remember') ? 'checked' : '' }}>
 
                                     <label style="line-height:1.5em" class="form-check-label mt-1" for="remember">
-                                        {{ __('Remember Me') }}
+                                        Mantener sesión activa
                                     </label>
                                 </div>
                             </div>
@@ -105,10 +99,9 @@
                                 @enderror
                             </div>
                         </div> --}}
-                        <div class="row mb-0 pb-5">
-                            <div class="col-md-8 offset-md-3" style="padding-left:30px">
-                                <button id="ini" type="submit" class="btn"
-                                    style="background-color: rgb(65, 65, 238);color:white;border-radius:19px">
+                        <div class="row mb-0">
+                            <div class="col-md-8 offset-md-3">
+                                <button id="ini" type="submit" class="btn">
                                     Iniciar Sesión
                                 </button>
                             </div>
