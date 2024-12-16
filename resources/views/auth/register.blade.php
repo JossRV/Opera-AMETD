@@ -2,6 +2,22 @@
 
 @section('content')
     <div class="container">
+
+        <div class="row">
+            <div class="col">
+                @if (session('error'))
+                  
+                        <strong>{{ session('error') }}</strong>
+                    
+                @endif
+                @if ($errors->has('email.unique') || $errors->has('curp.unique') || $errors->has('rfc.unique'))
+                    <div class="alert alert-danger">
+                        <strong> Revisa los campos porfavor o comunicate por este medio soporte@fmcaac.mx para revisar tu
+                            caso </strong>
+                    </div>
+                @endif
+            </div>
+        </div>
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
@@ -23,6 +39,8 @@
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
+
+                                        <strong>{{ $message }}</strong>
                                     @enderror
                                 </div>
                             </div>
@@ -39,6 +57,7 @@
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
+                                    <strong>{{ $message }}</strong>
                                 @enderror
                             </div>
 
@@ -55,6 +74,7 @@
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
+                                    <strong>{{ $message }}</strong>
                                 @enderror
                             </div>
 
@@ -78,6 +98,7 @@
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
+                                    <strong>{{ $message }}</strong>
                                 @enderror
                             </div>
 
@@ -94,6 +115,7 @@
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
+                                        <strong>{{ $message }}</strong>
                                     @enderror
                                 </div>
                             </div>
@@ -112,6 +134,7 @@
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
+                                    <strong>{{ $message }}</strong>
                                 @enderror
                             </div>
 
@@ -138,6 +161,7 @@
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
+                                    <strong>{{ $message }}</strong>
                                 @enderror
                             </div>
 
@@ -163,6 +187,7 @@
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
+                                    <strong>{{ $message }}</strong>
                                 @enderror
                             </div>
 
@@ -180,6 +205,7 @@
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
+                                        <strong>{{ $message }}</strong>
                                     @enderror
                                 </div>
                             </div>

@@ -43,7 +43,7 @@ class Persona extends Model
     {
         return $this->belongsTo(Pais::class, 'cat_pais_id');
     }
-    public function categoria()
+    public function especialidad()
     {
         return $this->belongsTo(Especialidad::class, 'cat_especialidad_id');
     }

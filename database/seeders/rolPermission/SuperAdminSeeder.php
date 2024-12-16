@@ -169,7 +169,7 @@ class SuperAdminSeeder extends Seeder
             'cat_prefijo_id' => 1,
             'cat_genero_id' => 1,
             'cat_pais_id' => 1,
-            'cat_categoria_id' => 1,
+            'cat_especialidad_id' => 1,
             'cat_estados_id' => 2,
             'estatus' => 1,
         ]);
@@ -193,7 +193,7 @@ class SuperAdminSeeder extends Seeder
             'cat_prefijo_id' => 1,
             'cat_genero_id' => 1,
             'cat_pais_id' => 1,
-            'cat_categoria_id' => 1,
+            'cat_especialidad_id' => 1,
             'cat_estados_id' => 2,
             'estatus' => 1,
         ]);
