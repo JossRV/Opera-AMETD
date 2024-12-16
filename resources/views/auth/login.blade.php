@@ -118,14 +118,14 @@
                                 <p>¿No tienes una cuenta?, registrate <a href="{{ url('/registro') }}"
                                         class="fs-5"><b>aquí</b></a></p>
                             </div>
-                            <div class="offset-md-2 col-md-8 my-2" style="padding-left:30px">
+                            {{-- <div class="offset-md-2 col-md-8 my-2" style="padding-left:30px">
                                 <p>
                                     ¿Olvidó su contraseña?, recuperala
                                     <btn onclick="recuperar()" class="fs-5 text-decoration-underline">
                                         <b>aquí</b>
                                     </btn>
                                 </p>
-                            </div>
+                            </div> --}}
                         </div>
                     </form>
                 </div>
