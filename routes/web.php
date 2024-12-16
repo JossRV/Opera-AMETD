@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\PerfilController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\LandingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,6 +18,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('landing/diplomado', [LandingController::class, 'diplomado'])->name('landing.diplomado');
 
 // rutas de login
 Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');

@@ -6,10 +6,10 @@
         <div class="row">
             <div class="col">
                 @if (session('error'))
-                  
-                        <strong>{{ session('error') }}</strong>
-                    
+                    <strong>{{ session('error') }}</strong>
                 @endif
+
+
                 @if ($errors->has('email.unique') || $errors->has('curp.unique') || $errors->has('rfc.unique'))
                     <div class="alert alert-danger">
                         <strong> Revisa los campos porfavor o comunicate por este medio soporte@fmcaac.mx para revisar tu
@@ -18,10 +18,11 @@
                 @endif
             </div>
         </div>
+
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">{{ __('Register') }}</div>
+                    <div style="font-size:25px" class="card-header">{{ __('Register') }}</div>
 
                     <div class="card-body">
                         <form method="POST" action="{{ route('register') }}">
@@ -91,7 +92,7 @@
                                     @foreach ($especialidades as $especialidad)
                                         <option value="{{ $especialidad->id }}"
                                             {{ old('especialidad') == $especialidad->id ? 'selected' : '' }}>
-                                            {{ $especialidad->especialidad}}</option>
+                                            {{ $especialidad->especialidad }}</option>
                                     @endforeach
                                 </select>
                                 @error('especialidad')
@@ -145,9 +146,8 @@
                                         class="fa-solid fa-asterisk fa-2xs fw-bold text-danger"></i></label>
 
 
-                                <select
-                                    class="form-control form-select @error('forma') is-invalid @enderror"
-                                    name="forma" required autocomplete="forma">
+                                <select class="form-control form-select @error('forma') is-invalid @enderror" name="forma"
+                                    required autocomplete="forma">
                                     <option value="">Seleccionar <i class="fa-solid fa-arrow-down-long"></i>
                                     </option>
                                     <hr>
@@ -166,13 +166,11 @@
                             </div>
 
                             <div class="col-5 col-xl-3 col-lg-4 col-md-6 col-12">
-                                <label
-                                    for="exhibiciones" class="col-form-label">Numero de exhibiciones <i
+                                <label for="exhibiciones" class="col-form-label">Numero de exhibiciones <i
                                         class="fa-solid fa-asterisk fa-2xs fw-bold text-danger"></i></label>
 
 
-                                <select
-                                    class="form-control form-select @error('exhibicion') is-invalid @enderror"
+                                <select class="form-control form-select @error('exhibicion') is-invalid @enderror"
                                     name="exhibicion" required autocomplete="exhibicion">
                                     <option value="">Seleccionar <i class="fa-solid fa-arrow-down-long"></i>
                                     </option>
@@ -193,8 +191,7 @@
 
 
                             <div class="row mb-3">
-                                <label for="password"
-                                    class="col-md-4 col-form-label text-md-end">contraseña</label>
+                                <label for="password" class="col-md-4 col-form-label text-md-end">contraseña</label>
 
                                 <div class="col-md-6">
                                     <input id="password" type="password"
@@ -212,8 +209,8 @@
 
 
                             <div class="row mb-3">
-                                <label for="password-confirm"
-                                    class="col-md-4 col-form-label text-md-end">confirmar contraseña</label>
+                                <label for="password-confirm" class="col-md-4 col-form-label text-md-end">confirmar
+                                    contraseña</label>
 
                                 <div class="col-md-6">
                                     <input id="password-confirm" type="password" class="form-control"
@@ -233,6 +230,17 @@
                 </div>
             </div>
         </div>
+
+        <br>
+        <div class="row mt-3">
+            <div class="col">
+               
+                    <p>Si ya tienes una cuenta, no es necesario crear una,
+                        inicia sesión <a style="color:#3A3DDD" href="{{ route('login') }}"><b>aqui</b></a>
+                    </p> 
+            </div>
+        </div>
+
     </div>
 @endsection
 @section('js')

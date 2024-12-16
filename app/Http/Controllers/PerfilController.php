@@ -11,6 +11,10 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use App\Models\Especialidad;
+use App\Models\Exhibicion;
+use App\Models\FormaPago;
+
 
 class PerfilController extends Controller
 {
@@ -23,37 +27,41 @@ class PerfilController extends Controller
         /** @var \App\Models\User $user */
         $user = Auth::user();
 
-        if ($user->hasRole('Federado') || $user->hasRole('No Federado') || $user->hasRole('Asociado')) {
-            $idPago = null;
+        // if ($user->hasRole('Federado') || $user->hasRole('No Federado') || $user->hasRole('Asociado')) {
+        // $idPago = null;
 
-            $estados = Estados::where('estatus', 1)->get(['id', 'estado']);
-            $categorias = Categoria::where('estatus', 1)->where('identificador', 1)->get();
-            $paises = Pais::where('estatus', 1)->get(['id', 'pais', 'codigo']);
+        $estados = Estados::where('estatus', 1)->get(['id', 'estado']);
+        $paises = Pais::where('estatus', 1)->get(['id', 'pais', 'codigo']);
+        $especialidades = Especialidad::where('estatus', 1)->get(['id', 'especialidad']);
+        $exhibiciones = Exhibicion::where('estatus', 1)->get(['id', 'exhibicion']);
+        $formas = FormaPago::where('estatus', 1)->get(['id', 'forma']);
 
-            $perfil = Persona::where('id', $user->persona_id)->first();
+        $perfil = Persona::where('id', $user->persona_id)->first();
 
-            if ($perfil->fecha_nac) {
-                $perfil->edad = Carbon::createFromFormat('Y-m-d', $perfil->fecha_nac)->age;
-            }
+        // if ($perfil->fecha_nac) {
+        //     $perfil->edad = Carbon::createFromFormat('Y-m-d', $perfil->fecha_nac)->age;
+        // }
 
-            if ($perfil->cat_categoria_id) {
-                $perfil->categoria = Categoria::where('id', $perfil->cat_categoria_id)->first(['categoria'])->categoria;
-            }
-            $perfil->correo = $user->email;
-            if ($user->clave_federado) {
-                $perfil->clave_federado = $user->clave_federado;
-            }
+        // if ($perfil->cat_categoria_id) {
+        //     $perfil->categoria = Categoria::where('id', $perfil->cat_categoria_id)->first(['categoria'])->categoria;
+        // }
+        // $perfil->correo = $user->email;
+        // if ($user->clave_federado) {
+        //     $perfil->clave_federado = $user->clave_federado;
+        // }
 
-            if ($perfil->cat_pais_id) {
-                $perfil->pais = $perfil->pais->pais;
-            }
-            return view('modules.personas.usuario', compact('perfil', 'categorias', 'paises', 'estados'));
-        } else {
-            if (!$user->hasRole('Becador')) {
-                return view('modules.personas.bienvenida');
-            }
-            return redirect()->route('becas.index')->with('bienvenida', true);
-        }
+        // if ($perfil->cat_pais_id) {
+        //     $perfil->pais = $perfil->pais->pais;
+        // }
+
+        return view('modules.personas.perfil', compact('perfil', 'especialidades', 'paises', 'estados','exhibiciones','formas'));
+
+        // } else {
+        //     if (!$user->hasRole('Becador')) {
+        //         return view('modules.personas.bienvenida');
+        //     }
+        //     return redirect()->route('becas.index')->with('bienvenida', true);
+        // }
     }
 
     // Edita los datos personales del perfil
