@@ -17,6 +17,6 @@ class Exhibicion extends Model
 
     public function ordenes()
     {
-        return $this->hasMany(Orden::class, 'cat_excibiciones');
+        return $this->hasMany(Orden::class, 'cat_exhibiciones_id');
     }
 }
