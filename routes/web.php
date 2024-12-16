@@ -16,9 +16,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 // rutas de login
 Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
@@ -30,7 +28,6 @@ Route::get('recuperar-cuenta/{mail}', [LoginController::class, 'mailRecuperar'])
 Route::get('registro', [RegisterController::class, 'showRegistrationForm'])->name('register');
 Route::post('registro', [RegisterController::class, 'create'])->name('register');
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::group(['middleware' => ['auth']], function () {
     // rutas de perfil
