@@ -8,6 +8,19 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
+use App\Models\Persona;
+use App\Models\Especialidad;
+use App\Models\Estados;
+use App\Models\Pais;
+
+use GuzzleHttp\Client;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
+
+
 class RegisterController extends Controller
 {
     /*
@@ -40,33 +53,112 @@ class RegisterController extends Controller
         $this->middleware('guest');
     }
 
-    /**
-     * Get a validator for an incoming registration request.
-     *
-     * @param  array  $data
-     * @return \Illuminate\Contracts\Validation\Validator
-     */
+    public function showRegistrationForm()
+    {
+        $paises = Pais::where('estatus', 1)->get(['id', 'pais', 'codigo']);
+        $especialidades = Especialidad::where('estatus', 1)->get(['id', 'especialidad']);
+        $estados = Estados::where('estatus', 1)->get(['id', 'estado']);
+        return view('auth.register', compact('especialidades','paises', 'estados'));
+    }
+
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'nombre' => 'required',
+            'paterno' => 'required',
+            'materno' => 'required',
+            'telefono' => ['required', 'numeric'],
+            'email' => ['required', 'email', 'unique:users', 'regex:/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/'],
+            'forma'=> 'required',
+            'especialidad'=> 'required',
+           
+            'password' => ['confirmed', 'required'],
+        ], [
+            'confirmed' => 'La contraseña no coincide',
+            'email.unique' => 'El correo electronico ya existe',
         ]);
     }
 
-    /**
-     * Create a new user instance after a valid registration.
-     *
-     * @param  array  $data
-     * @return \App\Models\User
-     */
-    protected function create(array $data)
+    public function verificarRecaptcha(Request $request)
     {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
+        $recaptchaResponse = $request->input('g-recaptcha-response');
+        $secret = '6Lfm35YqAAAAAEnFtmNwHUSSUJqClnlNpDq11TWa';
+
+        if (empty($recaptchaResponse)) {
+            return false;
+        }
+
+        $client = new Client();
+        $response = $client->post('https://www.google.com/recaptcha/api/siteverify', [
+            'form_params' => [
+                'secret' => $secret,
+                'response' => $recaptchaResponse,
+            ]
         ]);
+        $result = json_decode($response->getBody()->getContents(), true);
+        return $result['success'] ?? false;
+    }
+    
+    protected function create(Request $request)
+    {
+        $data = $request->all();
+        if (!$this->verificarRecaptcha($request)) {
+            return back()->withErrors(['captcha' => 'Error en la validación del CAPTCHA.']);
+        }
+
+
+        $this->validator($data)->validate();
+
+        DB::beginTransaction();
+        try {
+            $persona = new Persona();
+            $persona->nombre = ucwords($data['nombre']);
+            $persona->paterno = ucfirst($data['apellido_paterno']);
+            $persona->materno = ucfirst($data['apellido_materno']);
+            $persona->telefono = $data['telefono'];
+            $persona->cat_paises_id = $data['pais'];
+            $persona->cat_especialidad_id = $data['especialidad'];
+            $persona->estatus = 1;
+
+            if ($persona->save()) {
+                $usuario = new User();
+                $usuario->name = ucwords($data['nombre']);
+                $usuario->email = strtolower($data['email']);
+                $usuario->password = Hash::make($data['password']);
+                $usuario->res = $data['password'];
+                $usuario->persona_id = $persona->id;
+            }
+
+            // $datos = [
+            //     'nombre_completo' => "$persona->nombre $persona->paterno $persona->materno",
+            //     'telefono' => $persona->telefono,
+            //     'pais' => $persona->pais->pais,
+            //     'categoria' => $persona->categoria->categoria,
+            //     'correo' => $usuario->email,
+            //     'contraseña' => $data['password']
+            // ];
+
+            if ($usuario->save()) {
+                        
+                    $usuario->assignRole('No Socio');
+                    // Mail::to(['registrofmcaac@gmail.com', $usuario->email])->send(new NuevoUsuario($datos));
+
+                    DB::commit();
+
+                    $this->guard()->login($usuario);
+
+                    if ($response = $this->registered($request, $usuario)) {
+                        return $response;
+                    }
+
+                    return $request->wantsJson()
+                        ? new JsonResponse([], 201)
+                        : redirect($this->redirectPath());   
+            }
+
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect()->back()->with('error', 'Hubo problemas para registrarse, intentelo de nuevo por favor.');
+        }
     }
 }
