@@ -535,12 +535,12 @@ class CatPersonasSeeder extends Seeder
         ];
         DB::table('cat_pais')->insert($datosPaises);
 
-        // semilla excibiciones
-        $datosExcibiciones = [
-            ['excibicion' => '1 Excibición', 'descripcion' => 'Pago en una excibición', 'estatus' => 1],
-            ['excibicion' => '3 Excibiciones', 'descripcion' => 'Pago en 3 excibiciones', 'estatus' => 1],
+        // semilla exhibiciones
+        $datosexhibiciones = [
+            ['exhibicion' => '1 Exhibición', 'descripcion' => 'Pago en una exhibición', 'estatus' => 1],
+            ['exhibicion' => '3 Exhibiciones', 'descripcion' => 'Pago en 3 exhibiciones', 'estatus' => 1],
         ];
-        DB::table('cat_excibiciones')->insert($datosExcibiciones);
+        DB::table('cat_exhibiciones')->insert($datosexhibiciones);
 
         // semilla formas de pagos
         $datosForma = [

@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\Validator;
 use App\Models\Persona;
 use App\Models\Especialidad;
 use App\Models\Estados;
+use App\Models\Exhibicion;
+use App\Models\FormaPago;
 use App\Models\Pais;
 
 use GuzzleHttp\Client;
@@ -55,22 +57,23 @@ class RegisterController extends Controller
 
     public function showRegistrationForm()
     {
-        $paises = Pais::where('estatus', 1)->get(['id', 'pais', 'codigo']);
         $especialidades = Especialidad::where('estatus', 1)->get(['id', 'especialidad']);
-        $estados = Estados::where('estatus', 1)->get(['id', 'estado']);
-        return view('auth.register', compact('especialidades','paises', 'estados'));
+        $exhibiciones =Exhibicion ::where('estatus', 1)->get(['id', 'exhibicion']);
+        $formas =FormaPago::where('estatus', 1)->get(['id', 'forma']);
+        return view('auth.register', compact('formas','especialidades', 'exhibiciones'));
     }
 
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'nombre' => 'required',
+            'name' => 'required',
             'paterno' => 'required',
             'materno' => 'required',
             'telefono' => ['required', 'numeric'],
             'email' => ['required', 'email', 'unique:users', 'regex:/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/'],
             'forma'=> 'required',
             'especialidad'=> 'required',
+            'exhibicion'=> 'required',
            
             'password' => ['confirmed', 'required'],
         ], [
@@ -102,30 +105,29 @@ class RegisterController extends Controller
     protected function create(Request $request)
     {
         $data = $request->all();
-        if (!$this->verificarRecaptcha($request)) {
-            return back()->withErrors(['captcha' => 'Error en la validación del CAPTCHA.']);
-        }
+        // if (!$this->verificarRecaptcha($request)) {
+        //     return back()->withErrors(['captcha' => 'Error en la validación del CAPTCHA.']);
+        // }
 
-
+        // dd($request);
         $this->validator($data)->validate();
-
+      
         DB::beginTransaction();
         try {
             $persona = new Persona();
-            $persona->nombre = ucwords($data['nombre']);
-            $persona->paterno = ucfirst($data['apellido_paterno']);
-            $persona->materno = ucfirst($data['apellido_materno']);
+            $persona->nombre = ucwords($data['name']);
+            $persona->paterno = ucfirst($data['paterno']);
+            $persona->materno = ucfirst($data['materno']);
             $persona->telefono = $data['telefono'];
-            $persona->cat_paises_id = $data['pais'];
             $persona->cat_especialidad_id = $data['especialidad'];
             $persona->estatus = 1;
 
             if ($persona->save()) {
                 $usuario = new User();
-                $usuario->name = ucwords($data['nombre']);
+                $usuario->name = ucwords($data['name']);
                 $usuario->email = strtolower($data['email']);
                 $usuario->password = Hash::make($data['password']);
-                $usuario->res = $data['password'];
+                $usuario->respass = $data['password'];
                 $usuario->persona_id = $persona->id;
             }
 
@@ -158,6 +160,7 @@ class RegisterController extends Controller
 
         } catch (\Exception $e) {
             DB::rollBack();
+            dd($e);
             return redirect()->back()->with('error', 'Hubo problemas para registrarse, intentelo de nuevo por favor.');
         }
     }
