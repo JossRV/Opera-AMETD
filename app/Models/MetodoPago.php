@@ -14,4 +14,9 @@ class MetodoPago extends Model
         'descripcion',
         'estatus',
     ];
+
+    public function pagos()
+    {
+        return $this->hasMany(Pago::class, 'cat_metodo_pago_id');
+    }
 }

@@ -14,4 +14,9 @@ class FormaPago extends Model
         'descripcion',
         'estatus',
     ];
+
+    public function pagos()
+    {
+        return $this->hasMany(Pago::class, 'cat_forma_pago_id');
+    }
 }

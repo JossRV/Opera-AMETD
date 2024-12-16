@@ -18,7 +18,7 @@ return new class extends Migration
             $table->bigInteger('numero');
             $table->string('folio');
             $table->unsignedBigInteger('persona_id');
-            $table->unsignedBigInteger('recibo_id');
+            $table->unsignedBigInteger('pagos_id');
             $table->smallInteger('estatus');
             $table->timestamps();
         });

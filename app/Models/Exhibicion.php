@@ -14,4 +14,9 @@ class Exhibicion extends Model
         'descripcion',
         'estatus',
     ];
+
+    public function ordenes()
+    {
+        return $this->hasMany(Orden::class, 'cat_excibiciones');
+    }
 }
