@@ -134,7 +134,7 @@
     </section>
 
     <!-- Modal -->
-    <div class="modal fade" id="recuperar" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    {{-- <div class="modal fade" id="recuperar" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="recuperarLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg">
             <div class="modal-content">
@@ -160,7 +160,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 @endsection
 @section('js')
     <script>
