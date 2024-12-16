@@ -53,25 +53,25 @@ class CatPersonasSeeder extends Seeder
         ];
         DB::table('cat_prefijos')->insert($datosPrefijos);
 
-        // semilla categorias
-        $datosCategoria = [
+        // semilla especialidades
+        $datosEspecialidad = [
             [
-                'categoria' => "Médico Especialista",
+                'especialidad' => "Médico Especialista",
                 'descripcion' => "Médico Especialista",
                 'estatus' => 1
             ],
             [
-                'categoria' => "Médico Residente",
+                'especialidad' => "Médico Residente",
                 'descripcion' => "Médico Residente",
                 'estatus' => 1
             ],
             [
-                'categoria' => "Otros profesionales de la salud",
+                'especialidad' => "Otros profesionales de la salud",
                 'descripcion' => "Médico Residente",
                 'estatus' => 1
             ],
         ];
-        DB::table('cat_categorias')->insert($datosCategoria);
+        DB::table('cat_especialidades')->insert($datosEspecialidad);
 
         // semilla genero
         $dataGenero = [

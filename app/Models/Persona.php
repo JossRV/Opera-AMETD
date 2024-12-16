@@ -23,7 +23,7 @@ class Persona extends Model
         'cat_prefijo_id',
         'cat_genero_id',
         'cat_pais_id',
-        'cat_categoria_id',
+        'cat_especialidad_id',
         'cat_estados_id',
     ];
 
@@ -45,7 +45,7 @@ class Persona extends Model
     }
     public function categoria()
     {
-        return $this->belongsTo(Categoria::class, 'cat_categoria_id');
+        return $this->belongsTo(Especialidad::class, 'cat_especialidad_id');
     }
     public function estado()
     {

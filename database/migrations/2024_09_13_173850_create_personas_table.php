@@ -23,7 +23,7 @@ return new class extends Migration
             $table->unsignedBigInteger('cat_prefijo_id')->nullable();
             $table->unsignedBigInteger('cat_genero_id')->nullable();
             $table->unsignedBigInteger('cat_pais_id');
-            $table->unsignedBigInteger('cat_categoria_id');
+            $table->unsignedBigInteger('cat_especialidad_id');
             $table->unsignedBigInteger('cat_estados_id')->nullable();
             $table->timestamps();
         });
