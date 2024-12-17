@@ -72,7 +72,8 @@
                                     <nav class="collapse">
                                         <ul class="nav nav-pills" id="mainNav">
                                             <li class="nav-link">
-                                                <a data-hash class="nav-link" href="{{route('home')}}">
+                                                <a data-hash class="nav-link" href="{{ route('home') }}" data-hash
+                                                    data-hash-offset="0" data-hash-offset-lg="68">
                                                     Home
                                                 </a>
                                             </li>
