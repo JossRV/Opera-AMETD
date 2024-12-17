@@ -175,7 +175,6 @@
                             <h2 class="font-weight-extra-bold text-color-dark negative-ls-3 line-height-1 text-7 mb-3">
                                 <em>¡Regístrate ahora!</em>
                             </h2>
-                            <!--<span class="d-block alternative-font text-color-primay text-5 mb-4 pb-2">Enjoy the power</span>-->
                             <p class="lead mb-4 pb-2">El <strong>VII Diplomado Teórico-Práctico de Intervencionismo en
                                     Dolor</strong> está diseñado para brindarte una formación integral, actualizada y
                                 aplicada en el manejo del dolor mediante técnicas de intervencionismo.</p>
@@ -198,9 +197,9 @@
                                 </div>
                             </div>
 
-                            <a href="#" id="headerSignUp"
+                            <button id="headerAccount"
                                 class="btn btn-gradient-primary btn-effect-4 font-weight-semi-bold px-4 btn-py-2 text-3">Regístrate
-                                ahora <i class="fas fa-id-badge ms-1"></i></a>
+                                ahora <i class="fas fa-id-badge ms-1"></i></button>
                         </div>
                     </div>
                     <div class="col-lg-6 fluid-col-lg-6" style="min-height: 33vw;">
@@ -226,52 +225,6 @@
                             <p class="text-3 mb-4">¿Dudas, comentarios?</p>
                             <a href="mailto:"
                                 class="btn btn-primary btn-rounded font-weight-semibold px-5 btn-py-2 text-2">contacto@ametd.online</a>
-
-                            {{-- <form class="contact-form form-style-2 pe-xl-5" action="php/contact-form.php" method="POST">
-                                <div class="contact-form-success alert alert-success d-none mt-4">
-                                    <strong>Enviado!</strong> Tu mensaje ha sido enviado, en breve nos pondremos en contacto
-                                    contigo.
-                                </div>
-
-                                <div class="contact-form-error alert alert-danger d-none mt-4">
-                                    <strong>Ups!</strong> Algo no saío bien, intentalo nuevamente..
-                                    <span class="mail-error-message text-1 d-block"></span>
-                                </div>
-
-                                <div class="row">
-                                    <div class="form-group col-xl-4">
-                                        <input type="text" value="" data-msg-required="Please enter your name."
-                                            maxlength="100" class="form-control" name="name" placeholder="Nombre"
-                                            required>
-                                    </div>
-                                    <div class="form-group col-xl-8">
-                                        <input type="email" value=""
-                                            data-msg-required="Please enter your email address."
-                                            data-msg-email="Please enter a valid email address." maxlength="100"
-                                            class="form-control" name="email" placeholder="Email" required>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="form-group col">
-                                        <input type="text" value=""
-                                            data-msg-required="Please enter the subject." maxlength="100"
-                                            class="form-control" name="subject" placeholder="Asunto" required>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="form-group col">
-                                        <textarea maxlength="5000" data-msg-required="Please enter your message." rows="4" class="form-control"
-                                            name="message" placeholder="Mensaje" required></textarea>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="form-group col">
-                                        <input type="submit" value="ENVIAR"
-                                            class="btn btn-primary btn-rounded font-weight-semibold px-5 btn-py-2 text-2"
-                                            data-loading-text="Loading...">
-                                    </div>
-                                </div>
-                            </form> --}}
                         </div>
 
                     </div>
@@ -335,15 +288,15 @@
     </div>
 @endsection
 
-@section('js')
+{{-- @section('js')
     <!-- Google Maps -->
     <script>
         /* 
-    			Map Markers:
-    			- Get an API Key: https://developers.google.com/maps/documentation/javascript/get-api-key
-    			- Generate Map Id: https://console.cloud.google.com/google/maps-apis/studio/maps
-    			- Use https://www.latlong.net/convert-address-to-lat-long.html to get Latitude and Longitude of a specific address
-    			*/
+            			Map Markers:
+            			- Get an API Key: https://developers.google.com/maps/documentation/javascript/get-api-key
+            			- Generate Map Id: https://console.cloud.google.com/google/maps-apis/studio/maps
+            			- Use https://www.latlong.net/convert-address-to-lat-long.html to get Latitude and Longitude of a specific address
+            			*/
         (g => {
             var h, a, k, p = "The Google Maps JavaScript API",
                 c = "google",
@@ -437,4 +390,4 @@
 
         initMap();
     </script>
-@endsection
+@endsection --}}

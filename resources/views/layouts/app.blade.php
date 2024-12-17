@@ -72,7 +72,7 @@
                                     <nav class="collapse">
                                         <ul class="nav nav-pills" id="mainNav">
                                             <li class="nav-link">
-                                                <a data-hash class="nav-link" href="#home">
+                                                <a data-hash class="nav-link" href="{{route('home')}}">
                                                     Home
                                                 </a>
                                             </li>
@@ -453,6 +453,8 @@
         </div>
     </footer>
 
+    <!-- jquery -->
+    <script src="{{ asset('assets/vendor/jquery/jquery.min.js') }}"></script>
     <!-- Vendor -->
     <script src="{{ asset('assets/vendor/plugins/js/plugins.min.js') }}"></script>
     <!-- Theme Base, Components and Settings -->

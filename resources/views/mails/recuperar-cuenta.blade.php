@@ -99,7 +99,7 @@
 
                         Credenciales: <br>
                         - Correo: {{ $mail }} <br>
-                        - Contraseña: TemporalFMCA <br>
+                        - Contraseña: TemporalAMETD <br>
                     </p>
                 </div>
                 <br>
