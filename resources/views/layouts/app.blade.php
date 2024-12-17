@@ -41,12 +41,11 @@
                         </li>
                     @endif
                 @else
-
                     <li>
                         <a href="#"> Diplomado</a>
                         <ul>
                             <li><a href="{{ route('perfil.index') }}">Comprar</a></li>
-                            <li><a href="{{route('landing.diplomado')}}">Mas Informacion</a></li>
+                            <li><a href="{{ route('landing.diplomado') }}">Mas Informacion</a></li>
                         </ul>
                     </li>
                     <li>
@@ -70,7 +69,7 @@
     <main>
         @yield('content')
     </main>
-
+    @yield('js')
 
 </body>
 
