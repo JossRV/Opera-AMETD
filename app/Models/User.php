@@ -54,7 +54,7 @@ class User extends Authenticatable
      */
     public function contraseniaPorDefecto()
     {
-        return Hash::check('TemporalFMCA', $this->password);
+        return Hash::check('TemporalAMETD', $this->password);
     }
 
     public function persona()
