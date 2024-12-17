@@ -198,7 +198,7 @@
                             </div>
 
                             <button id="headerAccount"
-                                class="btn btn-gradient-primary btn-effect-4 font-weight-semi-bold px-4 btn-py-2 text-3">Regístrate
+                                class="prueba123 btn btn-gradient-primary btn-effect-4 font-weight-semi-bold px-4 btn-py-2 text-3">Regístrate
                                 ahora <i class="fas fa-id-badge ms-1"></i></button>
                         </div>
                     </div>
@@ -288,7 +288,7 @@
     </div>
 @endsection
 
-{{-- @section('js')
+@section('js')
     <!-- Google Maps -->
     <script>
         /* 
@@ -346,6 +346,8 @@
                 },
                 mapId: "AIzaSyDgBOLCpwFnCKbXCIuRx7yXZxSaOrGkxGQ",
             });
+
+
             const markers = [{
                 position: {
                     lat: -99.2109381,
@@ -390,4 +392,4 @@
 
         initMap();
     </script>
-@endsection --}}
+@endsection
