@@ -19,7 +19,7 @@ class Orden extends Model
         'afiliado',
         'categoria',
         'estatus',
-        'cat_excibiciones',
+        'cat_exhibiciones_id',
     ];
 
     public function ordenPago()
@@ -32,6 +32,6 @@ class Orden extends Model
     }
     public function exhibicion()
     {
-        return $this->belongsTo(Exhibicion::class, 'cat_excibiciones');
+        return $this->belongsTo(Exhibicion::class, 'cat_exhibiciones_id');
     }
 }

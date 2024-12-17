@@ -576,13 +576,6 @@ class CatPersonasSeeder extends Seeder
         ];
         DB::table('cat_metodo_pagos')->insert($datosMetodo);
 
-        // semilla excibiciones
-        $datosExcibiciones = [
-            ['excibicion' => '1 Excibición', 'descripcion' => 'Pago en una excibición', 'estatus' => 1],
-            ['excibicion' => '3 Excibiciones', 'descripcion' => 'Pago en 3 excibiciones', 'estatus' => 1],
-        ];
-        DB::table('cat_excibiciones')->insert($datosExcibiciones);
-
         // semilla tipos de ordenes
         $datosTipoOrden = [
             ['tipo' => 'Congreso', 'descripcion' => 'Para ordenes de Congreso a pagar', 'estatus' => 1],

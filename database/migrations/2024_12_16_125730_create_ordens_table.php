@@ -22,7 +22,7 @@ return new class extends Migration
             $table->smallInteger('afiliado')->nullable()->default(0);
             $table->smallInteger('categoria');
             $table->smallInteger('estatus');
-            $table->unsignedBigInteger('cat_excibiciones');
+            $table->unsignedBigInteger('cat_exhibiciones_id');
             $table->timestamps();
         });
     }

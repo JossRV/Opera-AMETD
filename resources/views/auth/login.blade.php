@@ -127,7 +127,7 @@
     </section>
 
     <!-- Modal -->
-    {{-- <div class="modal fade" id="recuperar" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    <div class="modal fade" id="recuperar" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="recuperarLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg">
             <div class="modal-content">
@@ -135,25 +135,26 @@
                     <h1 class="modal-title fs-5" id="recuperarLabel">Recupera tu cuenta</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col">
-                            <label for="buscador" class="form-label">Ingresa tu correo que registrastes</label>
-                            <div class="input-group has-validation">
-                                <input type="text" class="form-control" id="buscador" aria-describedby="basic-addon2">
+                <form  action="{{route('recuperar.cuenta')}}" method="POST">
+
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col">
+                                <label for="buscador" class="form-label">Ingresa tu correo que registrastes</label>
+                                    <input type="email" class="form-control" id="email">
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="submit" id="button-addon2">
-                        Recuperar
-                    </button>
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" type="submit" id="button-addon2">
+                            Recuperar
+                        </button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    </div>
+                </form>
             </div>
         </div>
-    </div> --}}
+    </div>
 @endsection
 @section('js')
     <script>
