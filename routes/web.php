@@ -25,7 +25,7 @@ Route::get('landing/diplomado', [LandingController::class, 'diplomado'])->name('
 Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('login', [LoginController::class, 'login'])->name('login');
 Route::post('logout', [LoginController::class, 'logout'])->name('logout');
-Route::post('recuperar-cuenta/{mail}', [LoginController::class, 'mailRecuperar'])->name('recuperar.cuenta');
+Route::post('recuperar-cuenta', [LoginController::class, 'mailRecuperar'])->name('recuperar.cuenta');
 // rutas de registro
 Route::get('registro', [RegisterController::class, 'showRegistrationForm'])->name('register');
 Route::post('registro', [RegisterController::class, 'create'])->name('register');
