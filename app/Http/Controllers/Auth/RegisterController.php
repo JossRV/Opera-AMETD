@@ -74,7 +74,7 @@ class RegisterController extends Controller
             // 'forma'=> 'required',
             // 'exhibicion'=> 'required',
             'especialidad'=> 'required',
-            'password' => ['confirmed', 'required'],
+            'password' => ['confirmed', 'required','string', 'min: 8'],
         ], [
             'confirmed' => 'La contraseña no coincide',
             'email.unique' => 'El correo electronico ya existe',

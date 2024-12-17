@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Hash;
 use App\Models\Especialidad;
 use App\Models\Exhibicion;
 use App\Models\FormaPago;
+use App\Models\Genero;
 
 
 class PerfilController extends Controller
@@ -35,6 +36,7 @@ class PerfilController extends Controller
         $especialidades = Especialidad::where('estatus', 1)->get(['id', 'especialidad']);
         $exhibiciones = Exhibicion::where('estatus', 1)->get(['id', 'exhibicion']);
         $formas = FormaPago::where('estatus', 1)->get(['id', 'forma']);
+        $generos = Genero::where('estatus', 1)->get(['id', 'genero']);
 
         $perfil = Persona::where('id', $user->persona_id)->first();
 
@@ -54,7 +56,7 @@ class PerfilController extends Controller
         //     $perfil->pais = $perfil->pais->pais;
         // }
 
-        return view('modules.personas.perfil', compact('perfil', 'especialidades', 'paises', 'estados','exhibiciones','formas'));
+        return view('modules.personas.perfil', compact('user','perfil', 'especialidades', 'paises', 'estados','exhibiciones','formas','generos'));
 
         // } else {
         //     if (!$user->hasRole('Becador')) {
@@ -71,18 +73,19 @@ class PerfilController extends Controller
         $user = Auth::user();
         $perfil = Persona::where('id', $user->persona_id)->first();
 
+
+        // dd($request->all());
         $request->validate([
             'nombre' => ['required', 'string'],
-            'apellido_paterno' => ['required', 'string'],
-            'apellido_materno' => ['required', 'string'],
-            'telefono' => ['required', 'numeric', 'min:8'],
-            'email' => ['required', 'email', 'unique:users,email,' . $user->id, 'regex:/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/'],
+            'paterno' => ['required', 'string'],
+            'materno' => ['required', 'string'],
             'fecha_nacimiento' => ['required', 'date'],
             'pais' => ['required'],
-            'entidad' => ['sometimes'],
-            'constancia' => ['sometimes', 'file', 'mimes:pdf', 'max:10000'],
+            'telefono' => ['required', 'numeric', 'min:8'],
+            'email' => ['required', 'email', 'unique:users,email,' . $user->id, 'regex:/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/'],
             'genero' => ['required'],
-            'categoria' => ['required']
+            'especialidad' => ['required'],
+            'entidad' => ['sometimes'],    
         ]);
 
         try {
@@ -93,30 +96,21 @@ class PerfilController extends Controller
 
             $perfil->update([
                 'nombre' => $request['nombre'],
-                'paterno' => $request['apellido_paterno'],
-                'materno' => $request['apellido_materno'],
-                'telefono' => $request['telefono'],
+                'paterno' => $request['paterno'],
+                'materno' => $request['materno'],
                 'fecha_nac' => $request['fecha_nacimiento'],
+                'cat_pais_id' => $request['pais'],
+                'telefono' => $request['telefono'],
                 'cat_genero_id' => $request['genero'],
-                'cat_categoria_id' => $request['categoria'],
-                'cat_paises_id' => $request['pais'],
+                'cat_especialidad_id' => $request['especialidad'],
                 'cat_estados_id' => $request['entidad'],
             ]);
 
-            if ($request->hasFile('constancia')) {
-                // obtener archvo subido
-                $file = $request->file('constancia');
-                // nombrar archvio
-                $nombrePDF = 'CFI_' . $perfil->id . '.pdf';
-                // mover a la ubicacion deseada
-                // para servidor
-                $file->move(base_path() . '/public_html/files/cfi/', $nombrePDF);
-                // para local
-                // $file->move(public_path('files/pdf/cfi'), $nombrePDF);
-            }
+            
 
-            return redirect()->route('perfil.index')->with('success', 'El cambio de contraseña se realizo con exito');
+            return redirect()->route('perfil.index')->with('success', 'El cambio de datos se realizo con exito');
         } catch (\Exception $e) {
+            dd($e);
             return redirect()->back()->with('error', 'No se pudo actualizar los datos del perfil, comuniquese para mas informacion');
         }
     }
