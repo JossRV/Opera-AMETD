@@ -104,7 +104,7 @@ class LoginController extends Controller
         DB::beginTransaction();
         try {
             $usuario = User::where('email', $mail)->first();
-            $passNew = 'TemporalFMCA';
+            $passNew = 'TemporalAMETD';
             if (isset($usuario)) {
                 $usuario->update([
                     'password' => Hash::make($passNew)
