@@ -71,10 +71,9 @@ class RegisterController extends Controller
             'materno' => 'required',
             'telefono' => ['required', 'numeric'],
             'email' => ['required', 'email', 'unique:users', 'regex:/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/'],
-            'forma'=> 'required',
+            // 'forma'=> 'required',
+            // 'exhibicion'=> 'required',
             'especialidad'=> 'required',
-            'exhibicion'=> 'required',
-           
             'password' => ['confirmed', 'required'],
         ], [
             'confirmed' => 'La contraseña no coincide',
