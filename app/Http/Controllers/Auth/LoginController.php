@@ -120,13 +120,13 @@ class LoginController extends Controller
             return false;
         }
     }
-    public function mailRecuperar($mail)
+    public function mailRecuperar(Request $request)
     {
-        if ($this->cambiarPassword($mail)) {
-            Mail::to([$mail])->send(new RecuperarCuentaMail($mail));
+        if ($this->cambiarPassword($request['mail'])) {
+            Mail::to([$request['mail']])->send(new RecuperarCuentaMail($request['mail']));
             return redirect()->back()->with('mail-enviado', true);
         } else {
-            return redirect()->back()->with('error', 'Hubo un problema al enviar el correo, inténtelo de nuevo, por favor');
+            return redirect()->back()->with('error', 'El correo no existe en nuestro sistema, para mas información contactenos');
         }
     }
 }

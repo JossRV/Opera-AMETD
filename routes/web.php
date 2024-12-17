@@ -22,12 +22,12 @@ Route::get('', [App\Http\Controllers\HomeController::class, 'index'])->name('hom
 Route::get('landing/diplomado', [LandingController::class, 'diplomado'])->name('landing.diplomado');
 
 // rutas de login
-Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
+// Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('login', [LoginController::class, 'login'])->name('login');
 Route::post('logout', [LoginController::class, 'logout'])->name('logout');
 Route::post('recuperar-cuenta', [LoginController::class, 'mailRecuperar'])->name('recuperar.cuenta');
 // rutas de registro
-Route::get('registro', [RegisterController::class, 'showRegistrationForm'])->name('register');
+// Route::get('registro', [RegisterController::class, 'showRegistrationForm'])->name('register');
 Route::post('registro', [RegisterController::class, 'create'])->name('register');
 
 

@@ -368,29 +368,39 @@
                                                 </div>
                                                 {{-- recuperar contraseña --}}
                                                 <div class="recover-form">
-                                                    <h5 class="text-uppercase mb-2 pb-1 font-weight-bold text-3">Recuperar
-                                                        mi contraseña</h5>
-                                                    <p class="text-2 mb-4">Ingrese el email con el que se registro, le
-                                                        enviaremos una liga para reestablecer su contraseña.</p>
-
-                                                    <form>
+                                                    <h5 class="text-uppercase mb-2 pb-1 font-weight-bold text-3">
+                                                        Recuperar mi contraseña
+                                                    </h5>
+                                                    <p class="text-2 mb-4">
+                                                        Ingrese el email con el que se registro, le
+                                                        enviaremos una liga para reestablecer su contraseña.
+                                                    </p>
+                                                    <form method="POST" action="{{ route('recuperar.cuenta') }}">
+                                                        @csrf
+                                                        @method('POST')
                                                         <div class="form-group">
-                                                            <label class="form-label mb-1 text-2 opacity-8">Correo
-                                                                electrónico* </label>
-                                                            <input type="email" class="form-control form-control-lg">
+                                                            <label class="form-label mb-1 text-2 opacity-8">
+                                                                Correo electrónico *
+                                                            </label>
+                                                            <input type="email" class="form-control form-control-lg"
+                                                                name="mail">
                                                         </div>
                                                         <div class="actions">
                                                             <div class="row">
                                                                 <div class="col d-flex justify-content-end">
-                                                                    <a class="btn btn-primary" href="#">Enviar</a>
+                                                                    <button type="submit"
+                                                                        class="btn btn-primary">Enviar</button>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <div class="extra-actions">
-                                                            <p>¿Ya tiene una cuenta? <a href="#"
-                                                                    id="headerRecoverCancel"
-                                                                    class="text-uppercase text-1 font-weight-bold text-color-dark">Inicie
-                                                                    sesión</a></p>
+                                                            <p>
+                                                                ¿Ya tiene una cuenta?
+                                                                <a href="#" id="headerRecoverCancel"
+                                                                    class="text-uppercase text-1 font-weight-bold text-color-dark">
+                                                                    Inicie sesión
+                                                                </a>
+                                                            </p>
                                                         </div>
                                                     </form>
                                                 </div>
@@ -425,55 +435,6 @@
             </div>
         </div>
     </header>
-    <header>
-        <nav>
-            <a href="{{ url('/') }}">Home</a>
-            <br>
-            <ul>
-                @guest
-                    <li>
-                        <a href="#"> Diplomado</a>
-                        <ul>
-                            <li><a href="{{ route('perfil.index') }}">Comprar</a></li>
-                            <li><a href="{{ route('landing.diplomado') }}">Mas Informacion</a></li>
-                        </ul>
-                    </li>
-
-                    @if (Route::has('login'))
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('login') }}">Inicio de sesión</a>
-                        </li>
-                    @endif
-                    @if (Route::has('register'))
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('register') }}">Registro</a>
-                        </li>
-                    @endif
-                @else
-                    <li>
-                        <a href="#"> Diplomado</a>
-                        <ul>
-                            <li><a href="{{ route('perfil.index') }}">Comprar</a></li>
-                            <li><a href="{{ route('landing.diplomado') }}">Mas Informacion</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="#">{{ Auth::user()->name }}</a>
-                        <ul>
-                            <li><a href="{{ route('perfil.index') }}">Mi cuenta</a></li>
-                            <li><a onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
-                                    href="{{ route('logout') }}">Cerrar sesión</a></li>
-                        </ul>
-                    </li>
-
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                        @csrf
-                    </form>
-
-                @endguest
-            </ul>
-        </nav>
-    </header>
 
     <main>
         @yield('content')
@@ -503,6 +464,8 @@
     <script src="{{ asset('assets/js/theme.init.js') }}"></script>
     <!-- Examples -->
     <script src="{{ asset('assets/js/examples/examples.portfolio.js') }}"></script>
+
+    @yield('js')
 </body>
 
 </html>

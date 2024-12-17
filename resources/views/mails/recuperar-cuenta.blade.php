@@ -27,7 +27,7 @@
             /* padding: 10px; */
             text-align: center;
             margin: 0px;
-            color: #ED7D31;
+            color: #0088CC;
             font-size: 25px;
         }
 
@@ -53,19 +53,19 @@
 
         .despedida1 {
             text-align: center;
-            color: #0030b6;
+            color: #0088CC;
         }
 
         .despedida2 {
             text-align: center;
             font-style: italic;
             font-weight: 800;
-            color: #0030b6;
+            color: #0088CC;
         }
 
         .despedida3 {
             text-align: center;
-            color: #0030b6;
+            color: #0088CC;
         }
 
         .adjuto-text {
