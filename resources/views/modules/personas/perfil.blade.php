@@ -1,225 +1,189 @@
 @extends('layouts.app')
 
 
-@if (session('success'))
-    <div class="alert alert-success">
-        <strong>{{ session('success') }}</strong>
-    </div>
-@endif
-@if (session('error'))
-    <div class="alert alert-danger">
-        <strong>{{ session('error') }}</strong>
-    </div>
-@endif
-@if ($errors->all())
-    <div class="alert alert-danger">
-        <p>Porfavor verifica los mensajes de error</p>
-        <p>{{ $errors->first('password') }}</p>
-    </div>
-@endif
 
 
 @section('content')
     {{-- personalizacion de perfil --}}
-    <div class="container-fluid">
-        <div class="perfil-head">
-            <div class="perfil-edit-foto">
-                <button class="perfil-boton">
-                    <i class="fa-solid fa-plus fa-2xl" style="color: #93f1e5;"></i>
-                </button>
-            </div>
-            <div class="perfil-edit-info">
-                <button class="perfil-boton-imagen">
-                    <img class="perfil-photo"
-                        src="https://operamx.events/fmca2024/wp-content/uploads/2024/02/userH-400x400.jpg"></img>
-                </button>
-            </div>
-        </div>
-    </div>
-
-    {{-- informacion de opciones --}}
-    <div class="container-fluid">
-        <div class="perfil-opciones">
-
-            {{-- <div class="fs-5 my-3">
-                    Por favor, actualice sus datos para poder utilizar el sistema.
-                </div>
-            --}}
-            <button type="button" class="btn" style="background-color: 2873E3" data-bs-toggle="modal"
-                data-bs-target="#staticBackdrop1">
-                Actualizar datos
-            </button>
-            <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#staticBackdrop2">
-                Cambiar contraseña
-            </button>
-        </div>
-    </div>
-
-
-    <div class="container-fluid">
-        <div class="perfil-info mb-5" style="padding:0px;">
-            <div class="accordion" id="accordionExample">
-                <div class="accordion-item">
-                    <h2 class="accordion-header" id="headingOne">
-                        <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-                            Datos personales
-                        </button>
-                    </h2>
-                    <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
-                        data-bs-parent="#accordionExample">
-                        <div class="accordion-body">
-
-                            <div class="container">
-                                <div class="row my-3">
-                                    <div class="col">
-                                        {{ $perfil->nombre }} {{ $perfil->paterno }} {{ $perfil->materno }}
-                                    </div>
-                                </div>
-                                <div class="row my-1">
-                                    <div class="col-md-6 col-xl-3 col-12 my-2">
-                                        <h5 class="mb-1"><b>Fecha de nacimiento: </b></h5>
-                                        {{ $perfil->fecha_nac ?? 'Sin fecha de nacimiento' }}
-                                    </div>
-                                    <div class="col-md-6 col-xl-3 col-6 my-2">
-                                        <h5 class="mb-1"><b>Edad: </b></h5>
-                                        {{ $perfil->edad ? $perfil->edad . ' años' : 'Sin edad' }}
-                                    </div>
-                                    <div class="col-md-6 col-xl-3 col-6 my-2">
-                                        <h5 class="text-capitalize mb-1"><b>Género: </b></h5>
-                                        {{ $perfil->genero->genero ?? 'Sin género' }}
-                                    </div>
-                                    <div class="col-md-6 col-xl-3 col-6 my-2">
-                                        <h5 class="text-capitalize mb-1"><b>País: </b></h5>
-                                        {{ $perfil->pais->pais ?? 'Sin pais' }}
-                                    </div>
-                                    <div class="col-md-6 col-xl-3 col-6 my-2">
-                                        <h5 class="mb-1"><b>Teléfono: </b></h5>
-                                        {{ $perfil->telefono ?? 'Sin telefono' }}
-                                    </div>
-                                    <div class="col-md-6 col-xl-3 col-12 my-2">
-                                        <h5 class="mb-1"><b>Especialidad: </b></h5>
-                                        {{ $perfil->especialidad->especialidad ?? 'Sin especialidad' }}
-                                    </div>
-                                    {{-- @if ($perfil->cat_paises_id == 1)
-                                        <div class="col-md-6 col-xl-3 col-12 my-2">
-                                            <h5 class="mb-1"><b>CURP: </b></h5>
-                                            {{ $perfil->curp != ' ' ? $perfil->curp : 'Sin CURP' }}
-                                        </div>
-                                        <div class="col-md-6 col-xl-3 col-12 my-2">
-                                            <h5><b>Clave de federado: </b></h5>
-                                            @if ($perfil->clave_federado)
-                                                <span class="badge fs-6 p-2 mt-1">{{ $perfil->clave_federado }}</span>
-                                            @else
-                                                {{ 'Sin clave' }}
-                                            @endif
-                                        </div>
-                                    @endif --}}
-                                </div>
-                                @if ($perfil->cat_paises_id == 1)
-                                    <div class="row my-1">
-                                        <div class="col-12 col-xl-7 col-lg-7 my-2">
-                                            <h5><b>Colegio al que pertenece: </b></h5>
-                                            @if ($perfil->colegio)
-                                                <span style="white-space:initial;text-align:left"
-                                                    class="badge mt-1 fs-6 p-2">
-                                                    {{ $perfil->colegio }} | {{ $perfil->clave_colegio }}
-                                                </span>
-                                            @else
-                                                {{ 'Sin Colegio' }}
-                                            @endif
-                                        </div>
-                                        <div class="col-12 col-xl-5 col-lg-5 my-2">
-                                            <h5><b>Constancia de situación fiscal: </b></h5>
-                                            @if ($archivoUsuario)
-                                                <a href="{{ asset('files/pdf/cfi/CFI_' . $perfil->id . '.pdf') }}"
-                                                    type="button" class="btn btn-download mt-1" target="_BLANK">
-                                                    Descargar <i class="fa fa-file-pdf" aria-hidden="true"></i>
-                                                </a>
-                                            @else
-                                                {{ 'Sin constancia de situación fiscal' }}
-                                            @endif
-
-                                        </div>
-                                    </div>
-                                @endif
-                            </div>
-
-                            {{-- <div class="container">
-                                    <div class="row my-3">
-                                        <div class="col">
-                                            <p class="fs-5"> Por favor, actualiza tu información para poder ver los
-                                                paquetes a pagar.</p>
-                                        </div>
-                                    </div>
-                                </div> --}}
-
-                        </div>
+    <div class="container my-4">
+        @if (session('success'))
+            <div class="row">
+                <div class="col">
+                    <div class="alert alert-success">
+                        <strong>{{ session('success') }}</strong>
                     </div>
                 </div>
-                {{-- @if (isset($paquetePagado))
+            </div>
+        @endif
+        @if (session('error'))
+            <div class="row">
+                <div class="col">
+                    <div class="alert alert-danger">
+                        <strong>{{ session('error') }}</strong>
+                    </div>
+                </div>
+            </div>
+        @endif
+        @if ($errors->all())
+            <div class="row">
+                <div class="col">
+                    <div class="alert alert-danger">
+                        <p>Porfavor verifica los mensajes de error</p>
+                        <p>{{ $errors->first('password') }}</p>
+                    </div>
+                </div>
+            </div>
+        @endif
+        <div class="row" style="padding:0px;">
+            <div class="col">
+                <div class="accordion" id="accordionExample">
                     <div class="accordion-item">
                         <h2 class="accordion-header" id="headingOne">
                             <button class="accordion-button" type="button" data-bs-toggle="collapse"
                                 data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-                                Historial de compras
+                                Datos personales
                             </button>
                         </h2>
                         <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
                             data-bs-parent="#accordionExample">
                             <div class="accordion-body">
-                                <table class="table table-striped align-middle">
-                                    <thead>
-                                        <tr>
-                                            <th>Orden</th>
-                                            <th>Monto</th>
-                                            <th>Recibo</th>
-                                            <th>Estatus</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>
-                                                {{ $paquetePagado->paquete }},
-                                                {{ $perfil->cat_categoria_id == 1 ? 'Residente de Anestesiología' : ($afiliado == 1 ? 'Anestesiologo Federado' : 'Anestesiología No Federado') }}
-                                            </td>
-                                            <td>
-                                                {{ $paquetePagado->monto }}
-                                                {{ $perfil->cat_paises_id == 1 ? 'MXN' : 'USD' }}
-                                            </td>
-                                            <td>
-                                                @if ($paquetePagado->estatus_pago != 2)
-                                                    @if (file_exists(base_path() . '/public_html/files/pdf/ordenes/' . $paquetePagado->folio . '.pdf'))
-                                                        <a class="btn btn-success btn-sm" target="_BLANK"
-                                                            href="{{ asset('files/pdf/ordenes/' . $recibo->folio . '.pdf') }}">{{ $recibo->folio }}</a>
-                                                    @else
-                                                        S/R
-                                                    @endif
+
+                                <div class="container">
+                                    <div class="row my-3">
+                                        <div class="col">
+                                            {{ $perfil->nombre }} {{ $perfil->paterno }} {{ $perfil->materno }}
+                                        </div>
+                                    </div>
+                                    <div class="row my-1">
+                                        <div class="col-md-6 col-xl-3 col-12 my-2">
+                                            <h5 class="mb-1"><b>Fecha de nacimiento: </b></h5>
+                                            {{ $perfil->fecha_nac ?? 'Sin fecha de nacimiento' }}
+                                        </div>
+                                        <div class="col-md-6 col-xl-3 col-6 my-2">
+                                            <h5 class="mb-1"><b>Edad: </b></h5>
+                                            {{ $perfil->edad ? $perfil->edad . ' años' : 'Sin edad' }}
+                                        </div>
+                                        <div class="col-md-6 col-xl-3 col-6 my-2">
+                                            <h5 class="text-capitalize mb-1"><b>Género: </b></h5>
+                                            {{ $perfil->genero->genero ?? 'Sin género' }}
+                                        </div>
+                                        <div class="col-md-6 col-xl-3 col-6 my-2">
+                                            <h5 class="text-capitalize mb-1"><b>País: </b></h5>
+                                            {{ $perfil->pais->pais ?? 'Sin pais' }}
+                                        </div>
+                                        <div class="col-md-6 col-xl-3 col-6 my-2">
+                                            <h5 class="mb-1"><b>Teléfono: </b></h5>
+                                            {{ $perfil->telefono ?? 'Sin telefono' }}
+                                        </div>
+                                        <div class="col-md-6 col-xl-3 col-12 my-2">
+                                            <h5 class="mb-1"><b>Especialidad: </b></h5>
+                                            {{ $perfil->especialidad->especialidad ?? 'Sin especialidad' }}
+                                        </div>
+                                    </div>
+                                    @if ($perfil->cat_paises_id == 1)
+                                        <div class="row my-1">
+                                            <div class="col-12 col-xl-7 col-lg-7 my-2">
+                                                <h5><b>Colegio al que pertenece: </b></h5>
+                                                @if ($perfil->colegio)
+                                                    <span style="white-space:initial;text-align:left"
+                                                        class="badge mt-1 fs-6 p-2">
+                                                        {{ $perfil->colegio }} | {{ $perfil->clave_colegio }}
+                                                    </span>
                                                 @else
-                                                    S/R
+                                                    {{ 'Sin Colegio' }}
                                                 @endif
-                                            </td>
-                                            <td>
-                                                <span
-                                                    class="text-dark badge bg-{{ $paquetePagado->estatus_pago == 1 ? 'success' : ($paquetePagado->estatus_pago == 0 ? 'danger' : 'warning') }} fs-6">
-                                                    {{ $paquetePagado->estatus_pago == 1 ? 'Pagado' : ($paquetePagado->estatus_pago == 0 ? 'Cancelado' : 'Revisión') }}
-                                                </span>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                                            </div>
+                                            <div class="col-12 col-xl-5 col-lg-5 my-2">
+                                                <h5><b>Constancia de situación fiscal: </b></h5>
+                                                @if ($archivoUsuario)
+                                                    <a href="{{ asset('files/pdf/cfi/CFI_' . $perfil->id . '.pdf') }}"
+                                                        type="button" class="btn btn-download mt-1" target="_BLANK">
+                                                        Descargar <i class="fa fa-file-pdf" aria-hidden="true"></i>
+                                                    </a>
+                                                @else
+                                                    {{ 'Sin constancia de situación fiscal' }}
+                                                @endif
+
+                                            </div>
+                                        </div>
+                                    @endif
+                                    <div class="row my-2">
+                                        
+                                        <div class="col">
+                                            <div class="button-group float-end">
+                                                <button type="button" class="btn btn-gradient-primary"
+                                                    data-bs-toggle="modal" data-bs-target="#staticBackdrop1">
+                                                    Actualizar datos
+                                                </button>
+                                                <button type="button" class="btn btn-gradient-primary"
+                                                    data-bs-toggle="modal" data-bs-target="#staticBackdrop2">
+                                                    Cambiar contraseña
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                @endif --}}
+                    {{-- @if (isset($paquetePagado))
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingOne">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                                    Historial de compras
+                                </button>
+                            </h2>
+                            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+                                data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    <table class="table table-striped align-middle">
+                                        <thead>
+                                            <tr>
+                                                <th>Orden</th>
+                                                <th>Monto</th>
+                                                <th>Recibo</th>
+                                                <th>Estatus</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    {{ $paquetePagado->paquete }},
+                                                    {{ $perfil->cat_categoria_id == 1 ? 'Residente de Anestesiología' : ($afiliado == 1 ? 'Anestesiologo Federado' : 'Anestesiología No Federado') }}
+                                                </td>
+                                                <td>
+                                                    {{ $paquetePagado->monto }}
+                                                    {{ $perfil->cat_paises_id == 1 ? 'MXN' : 'USD' }}
+                                                </td>
+                                                <td>
+                                                    @if ($paquetePagado->estatus_pago != 2)
+                                                        @if (file_exists(base_path() . '/public_html/files/pdf/ordenes/' . $paquetePagado->folio . '.pdf'))
+                                                            <a class="btn btn-success btn-sm" target="_BLANK"
+                                                                href="{{ asset('files/pdf/ordenes/' . $recibo->folio . '.pdf') }}">{{ $recibo->folio }}</a>
+                                                        @else
+                                                            S/R
+                                                        @endif
+                                                    @else
+                                                        S/R
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    <span
+                                                        class="text-dark badge bg-{{ $paquetePagado->estatus_pago == 1 ? 'success' : ($paquetePagado->estatus_pago == 0 ? 'danger' : 'warning') }} fs-6">
+                                                        {{ $paquetePagado->estatus_pago == 1 ? 'Pagado' : ($paquetePagado->estatus_pago == 0 ? 'Cancelado' : 'Revisión') }}
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    @endif --}}
+                </div>
             </div>
         </div>
-    </div>
-    <br>
-
-
-    <div style="height: 30vh;background-color:rgb(207, 207, 207)">
-        <section>seccion de compras</section>
     </div>
 
     <!-- Modal editar datos-->
@@ -433,7 +397,7 @@
         </div>
     </div>
 
-
+    {{-- modal cambiar contraseña --}}
     <div class="modal fade" id="staticBackdrop2" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog ">
@@ -444,11 +408,11 @@
                 </div>
 
                 <form method="POST" action="{{ route('perfil.editPassword') }}">
-                    <div class="modal-body">
+                    <div class="modal-body text-center">
                         @csrf
                         @method('PUT')
                         <div class="row my-3">
-                            <div class="col-12 col-sm-4 col-lg-7  ">
+                            <div class="col-12">
                                 <label for="password_old" class="col-form-label">Anterior Contraseña<i
                                         class="fa-solid fa-asterisk fa-2xs" style="color: #003cff;"></i></label>
                                 <input id="password_old" type="password"
@@ -461,7 +425,7 @@
                                     </span>
                                 @enderror
                             </div>
-                            <div class="col-12 col-lg-7 col-sm-4">
+                            <div class="col-12">
                                 <label for="password" class="col-form-label">Nueva Contraseña<i
                                         class="fa-solid fa-asterisk fa-2xs" style="color: #003cff;"></i></label>
                                 <input id="password" type="password"
@@ -474,7 +438,7 @@
                                     </span>
                                 @enderror
                             </div>
-                            <div class="col-12 col-lg-7 col-sm-4">
+                            <div class="col-12">
                                 <label for="password_confirmation" class="col-form-label">Confirmar Nueva Contraseña
                                     <i class="fa-solid fa-asterisk fa-2xs" style="color: #003cff;"></i>
                                 </label>
@@ -504,7 +468,6 @@
             </div>
         </div>
     </div>
-
 
     <style>
         #telefono[type=number]::-webkit-inner-spin-button,

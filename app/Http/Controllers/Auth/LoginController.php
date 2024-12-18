@@ -96,8 +96,7 @@ class LoginController extends Controller
         if ($user->contraseniaPorDefecto()) {
             return '/primer-cambio';
         }
-        // return '/perfil';
-        return '/';
+        return '/perfil';
     }
     protected function cambiarPassword($mail)
     {
