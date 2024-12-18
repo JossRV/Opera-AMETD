@@ -8385,54 +8385,38 @@ window.theme.fn = {
 				});
 
                 // Top Features
-                $header.find('.header-nav-features-toggle').on('click', function(e) {
-					e.preventDefault();
+                // $header.find('.header-nav-features-toggle').on('click', function(e) {
+				// 	e.preventDefault();
 
-					const $toggleParent = $(this).parent();
+				// 	const $toggleParent = $(this).parent();
 
-					console.log($toggleParent);
+				// 	console.log($toggleParent);
 
-					if (!$(this).siblings('.header-nav-features-dropdown').hasClass('show')) {
+				// 	if (!$(this).siblings('.header-nav-features-dropdown').hasClass('show')) {
 
-						const $dropdown = $(this).siblings('.header-nav-features-dropdown');
+				// 		const $dropdown = $(this).siblings('.header-nav-features-dropdown');
 
-						$('.header-nav-features-dropdown.show').removeClass('show');
+				// 		$('.header-nav-features-dropdown.show').removeClass('show');
 
-						$dropdown.addClass('show');
+				// 		$dropdown.addClass('show');
 
-						// $(document).off('click.header-nav-features-toggle').on('click.header-nav-features-toggle', ({target}) => {
-						// 	if (!$toggleParent.is(target) && $toggleParent.has(target).length === 0) {
-						// 		$('.header-nav-features-dropdown.show').removeClass('show');
-						// 	}
-						// });
+				// 		// $(document).off('click.header-nav-features-toggle').on('click.header-nav-features-toggle', ({target}) => {
+				// 		// 	if (!$toggleParent.is(target) && $toggleParent.has(target).length === 0) {
+				// 		// 		$('.header-nav-features-dropdown.show').removeClass('show');
+				// 		// 	}
+				// 		// });
 
-						if ($(this).attr('data-focus')) {
-							$('#' + $(this).attr('data-focus')).focus();
-						}
+				// 		if ($(this).attr('data-focus')) {
+				// 			$('#' + $(this).attr('data-focus')).focus();
+				// 		}
 
-					} else {
-						$(this).siblings('.header-nav-features-dropdown').removeClass('show');
-					}
-				});
+				// 	} else {
+				// 		$(this).siblings('.header-nav-features-dropdown').removeClass('show');
+				// 	}
+				// });
 
 
 
-				$('.prueba123').on('click', function(e) {
-					e.preventDefault();
-					$('.header-nav-feature').addClass('signup').removeClass('signin').removeClass('recover');
-					$('.header-nav-feature').find('.signup-form input:first').focus();
-					if (!$('.header-nav-features-dropdown').hasClass('show')) {
-						// console.log('no tiene');
-						// const $dropdo = $('#headerTopUserDropdown')
-						// console.log($dropdo);
-						
-						document.getElementById('headerTopUserDropdown').classList.add('show');
-					} else {
-						console.log('tiene');
-						const $dropdo = $('#headerTopUserDropdown');
-						$dropdo.removeClass('show');
-					}
-				});
 
                 // Hamburguer Menu
                 const $hamburguerMenuBtn = $('.hamburguer-btn:not(.side-panel-toggle)'), $hamburguerSideHeader = $('#header.side-header, #header.side-header-overlay-full-screen');
