@@ -3,7 +3,7 @@
 @include('includes/head')
 
 <body>
-    @include('includes/header')
+    @include('includes/headerperfil')
    
     <main>
         @yield('content')
