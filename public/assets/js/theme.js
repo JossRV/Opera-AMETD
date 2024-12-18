@@ -8385,12 +8385,11 @@ window.theme.fn = {
 				});
 
                 // Top Features
+				// edicion
                 // $header.find('.header-nav-features-toggle').on('click', function(e) {
 				// 	e.preventDefault();
 
 				// 	const $toggleParent = $(this).parent();
-
-				// 	console.log($toggleParent);
 
 				// 	if (!$(this).siblings('.header-nav-features-dropdown').hasClass('show')) {
 
@@ -8400,11 +8399,11 @@ window.theme.fn = {
 
 				// 		$dropdown.addClass('show');
 
-				// 		// $(document).off('click.header-nav-features-toggle').on('click.header-nav-features-toggle', ({target}) => {
-				// 		// 	if (!$toggleParent.is(target) && $toggleParent.has(target).length === 0) {
-				// 		// 		$('.header-nav-features-dropdown.show').removeClass('show');
-				// 		// 	}
-				// 		// });
+				// 		$(document).off('click.header-nav-features-toggle').on('click.header-nav-features-toggle', ({target}) => {
+				// 			if (!$toggleParent.is(target) && $toggleParent.has(target).length === 0) {
+				// 				$('.header-nav-features-dropdown.show').removeClass('show');
+				// 			}
+				// 		});
 
 				// 		if ($(this).attr('data-focus')) {
 				// 			$('#' + $(this).attr('data-focus')).focus();

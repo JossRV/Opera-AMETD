@@ -702,6 +702,7 @@ li {
 }
 
 @media (max-width: 440px) {
+
 	#header .header-nav-features .header-nav-features-dropdown.header-nav-features-dropdown-mobile-fixed {
 		position: fixed;
 		right: auto;
@@ -910,14 +911,19 @@ li {
 }
 
 #header .header-nav-features .header-nav-features-user .header-nav-features-dropdown {
+
 	margin-right: -27px;
 	min-width: 420px;
 	padding: 35px;
 }
-
+/* edicion */
 @media (max-width: 767px) {
+/* @media (max-width: 600px) { */
+	
 	#header .header-nav-features .header-nav-features-user .header-nav-features-dropdown {
-		min-width: 320px;
+		/* edicion */
+		/* min-width: 320px; */
+		min-width: 100vw;
 	}
 }
 
