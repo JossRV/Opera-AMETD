@@ -32,7 +32,7 @@
     <link rel="stylesheet" href="{{ asset('assets/vendor/magnific-popup/magnific-popup.min.css') }}">
 
     <!-- Theme CSS -->
-    <link rel="stylesheet" href="{{ asset('assets/css/theme.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/theme.css?v1') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/theme-elements.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/theme-blog.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/theme-shop.css') }}">

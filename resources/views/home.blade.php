@@ -10,7 +10,7 @@
         <!-- visible movil -->
         <!-- visible escritorio -->
         <div class="d-none d-sm-none d-md-block">
-            <img src="{{ asset('assets/img/slides/slider1.jpg') }}" style="width: 100%" class="img-fluid">
+            <img src="{{ asset('assets/img/slides/slider2.png') }}" style="width: 100%" class="img-fluid">
         </div>
         <!-- visible escritorio -->
         <!-- IMAGEN HOME -->
@@ -173,7 +173,7 @@
                             <span class="d-block font-weight-light negative-ls-1 text-5 mb-1"><em
                                     class="text-2 opacity-8">Dirigido a Algólogos</em></span>
                             <h2 class="font-weight-extra-bold text-color-dark negative-ls-3 line-height-1 text-7 mb-3">
-                                <em>¡Regístrate ahora!</em>
+                                <em>{{ Auth::check() ? '¡Comprar ahora!' : '¡Regístrate ahora!' }}</em>
                             </h2>
                             <p class="lead mb-4 pb-2">El <strong>VII Diplomado Teórico-Práctico de Intervencionismo en
                                     Dolor</strong> está diseñado para brindarte una formación integral, actualizada y
@@ -196,10 +196,16 @@
                                     </ul>
                                 </div>
                             </div>
+                            @if (Auth::check())
+                                <a class="btn btn-gradient-primary btn-effect-4 font-weight-semi-bold px-4 btn-py-2 text-3 mb-4"
+                                    href="{{ route('perfil.index') }}">Comprar
+                                </a>
+                            @else
+                                <button id="headerAccount"
+                                    class="prueba123 btn btn-gradient-primary btn-effect-4 font-weight-semi-bold px-4 btn-py-2 text-3 mb-4">Regístrate<i
+                                        class="fas fa-id-badge ms-1"></i></button>
+                            @endif
 
-                            <button id="headerAccount"
-                                class="prueba123 btn btn-gradient-primary btn-effect-4 font-weight-semi-bold px-4 btn-py-2 text-3">Regístrate
-                                ahora <i class="fas fa-id-badge ms-1"></i></button>
                         </div>
                     </div>
                     <div class="col-lg-6 fluid-col-lg-6" style="min-height: 33vw;">
@@ -292,11 +298,11 @@
     <!-- Google Maps -->
     <script>
         /* 
-            			Map Markers:
-            			- Get an API Key: https://developers.google.com/maps/documentation/javascript/get-api-key
-            			- Generate Map Id: https://console.cloud.google.com/google/maps-apis/studio/maps
-            			- Use https://www.latlong.net/convert-address-to-lat-long.html to get Latitude and Longitude of a specific address
-            			*/
+                			Map Markers:
+                			- Get an API Key: https://developers.google.com/maps/documentation/javascript/get-api-key
+                			- Generate Map Id: https://console.cloud.google.com/google/maps-apis/studio/maps
+                			- Use https://www.latlong.net/convert-address-to-lat-long.html to get Latitude and Longitude of a specific address
+                			*/
         (g => {
             var h, a, k, p = "The Google Maps JavaScript API",
                 c = "google",
@@ -339,17 +345,18 @@
                 "marker",
             );
             const map = new Map(document.getElementById("googlemaps"), {
-                zoom: 12,
+                zoom: 17,
                 center: {
-                    lat: -99.2129727,
-                    lng: 19.4409021
+                    lat: 19.360356,
+                    lng: -99.141341
+
                 },
                 mapId: "AIzaSyBAWXA8qemB0EvSV8DkuuTzIBjhl5U6nVQ",
             });
             const markers = [{
                 position: {
-                    lat: -99.2109381,
-                    lng: 19.438472
+                    lat: 19.360356,
+                    lng: -99.141341
                 },
                 title: "AMETD<br>Av. Ejército Nacional Mexicano 613,<br> Polanco, Granada, Miguel Hidalgo, <brC.P.11510 Ciudad de México, CDMX",
             }];
@@ -389,47 +396,48 @@
         }
 
         initMap();
-
-        
     </script>
 
 
-<script>
-    $('.prueba123').on('click', function(e) {
-                // e.preventDefault();
-                $('.header-nav-feature').addClass('signup').removeClass('signin').removeClass('recover');
-                $('.header-nav-feature').find('.signup-form input:first').focus();
-                if (!$('.header-nav-features-dropdown').hasClass('show')) {
-                    console.log('prueba');
-                    // document.getElementByClassName('header-nav-features-dropdown').classList.add('show');
-                    
-                  const $dropdo = $('.header-nav-features-dropdown');
-                          $dropdo.className='header-nav-features-dropdown header-nav-features-dropdown-mobile-fixed header-nav-features-dropdown-force-right show'
-                } else {
-                    
-                    const $dropdo = $('.header-nav-features-dropdown');
-                        $dropdo.className='header-nav-features-dropdown header-nav-features-dropdown-mobile-fixed header-nav-features-dropdown-force-right'
-                }
-            });
-</script>
     <script>
-        $('.header-nav-features-toggle').on('click', function(e) {
-                    // e.preventDefault();
-                    // $('.header-nav-feature').addClass('signup').removeClass('signin').removeClass('recover');
-                    // $('.header-nav-feature').find('.signup-form input:first').focus();
-                    if (!$('.header-nav-features-dropdown').hasClass('show')) {
-                        console.log('prueba');
-                        // document.getElementByClassName('header-nav-features-dropdown').classList.add('show');
-                        
-                        const $dropdo = $('.header-nav-features-dropdown');
-                          $dropdo.className='header-nav-features-dropdown header-nav-features-dropdown-mobile-fixed header-nav-features-dropdown-force-right show'
-                    } else {
-                        
-                        const $dropdo = $('.header-nav-features-dropdown');
-                        $dropdo.className='header-nav-features-dropdown header-nav-features-dropdown-mobile-fixed header-nav-features-dropdown-force-right'
-                    }
-                });
+        $('.prueba123').on('click', function(e) {
+            e.preventDefault();
+            $('.header-nav-feature').addClass('signup').removeClass('signin').removeClass('recover');
+            $('.header-nav-feature').find('.signup-form input:first').focus();
+            if (!$('.header-nav-features-dropdown').hasClass('show')) {
+                console.log('prueba');
+                document.querySelector('.header-nav-features-dropdown').classList.add('show');
+            } else {
+
+                document.querySelector('.header-nav-features-dropdown').classList.remove('show');
+            }
+        });
+    </script>
+    <script>
+        $('.prueba1234').on('click', function(e) {
+            e.preventDefault();
+            $('.header-nav-feature').addClass('signin').removeClass('signup').removeClass('recover');
+            $('.header-nav-feature').find('.signin-form input:first').focus();
+            if (!$('.header-nav-features-dropdown').hasClass('show')) {
+                console.log('prueba');
+                document.querySelector('.header-nav-features-dropdown').classList.add('show');
+            } else {
+
+                document.querySelector('.header-nav-features-dropdown').classList.remove('show');
+            }
+        });
     </script>
 
+    <script>
+        $('.cerrarmodal').on('click', function(e) {
+            e.preventDefault();
+            if (!$('.header-nav-features-dropdown').hasClass('show')) {
+                console.log('prueba');
+                document.querySelector('.header-nav-features-dropdown').classList.add('show');
+            } else {
 
+                document.querySelector('.header-nav-features-dropdown').classList.remove('show');
+            }
+        });
+    </script>
 @endsection
