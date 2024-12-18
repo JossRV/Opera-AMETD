@@ -108,7 +108,7 @@
                                         </div>
                                     @endif
                                     <div class="row my-2">
-                                        
+
                                         <div class="col">
                                             <div class="button-group float-end">
                                                 <button type="button" class="btn btn-gradient-primary"
@@ -480,22 +480,22 @@
             -moz-appearance: textfield;
         }
     </style>
-   <script>
+@endsection
+@section('js')
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            $('.prueba1234').on('click', function(e) {
+                e.preventDefault();
+                $('.header-nav-feature').addClass('signin').removeClass('signup').removeClass('recover');
+                $('.header-nav-feature').find('.signin-form input:first').focus();
+                if (!$('.header-nav-features-dropdown').hasClass('show')) {
+                    console.log('prueba');
+                    document.querySelector('.header-nav-features-dropdown').classList.add('show');
+                } else {
 
-document.addEventListener("DOMContentLoaded", function() {
-    $('.prueba1234').on('click', function(e) {
-        e.preventDefault();
-        $('.header-nav-feature').addClass('signin').removeClass('signup').removeClass('recover');
-        $('.header-nav-feature').find('.signin-form input:first').focus();
-        if (!$('.header-nav-features-dropdown').hasClass('show')) {
-            console.log('prueba');
-            document.querySelector('.header-nav-features-dropdown').classList.add('show');
-        } else {
-
-            document.querySelector('.header-nav-features-dropdown').classList.remove('show');
-        }
-    });
-});
-   
-</script>
+                    document.querySelector('.header-nav-features-dropdown').classList.remove('show');
+                }
+            });
+        });
+    </script>
 @endsection

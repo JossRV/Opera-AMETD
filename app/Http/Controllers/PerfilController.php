@@ -39,7 +39,10 @@ class PerfilController extends Controller
         $generos = Genero::where('estatus', 1)->get(['id', 'genero']);
 
         $perfil = Persona::where('id', $user->persona_id)->first();
-
+        $perfil->edad = 'Sin Edad';
+        $perfil->genero = 'Sin Genero';
+        $perfil->pais = 'Sin Pais';
+        $perfil->especialidad = 'Sin Pais';
         if ($perfil->fecha_nac) {
             $perfil->edad = Carbon::createFromFormat('Y-m-d', $perfil->fecha_nac)->age;
         }
