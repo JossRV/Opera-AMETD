@@ -7,25 +7,16 @@
     <section>
         {{-- personalizacion de perfil --}}
         <div class="container my-4">
-            @if (session('success'))
+            @if (session('success') || session('error'))
                 <div class="row">
                     <div class="col">
-                        <div class="alert alert-success">
-                            <strong>{{ session('success') }}</strong>
+                        <div class="alert alert-{{ session('sucess') ? 'success' : 'danger' }}">
+                            <strong>{{ session('success') || session('error') }}</strong>
                         </div>
                     </div>
                 </div>
             @endif
-            @if (session('error'))
-                <div class="row">
-                    <div class="col">
-                        <div class="alert alert-danger">
-                            <strong>{{ session('error') }}</strong>
-                        </div>
-                    </div>
-                </div>
-            @endif
-            @if ($errors->all())
+            {{-- @if ($errors->all())
                 <div class="row">
                     <div class="col">
                         <div class="alert alert-danger">
@@ -34,7 +25,8 @@
                         </div>
                     </div>
                 </div>
-            @endif
+            @endif --}}
+            {{-- acordion de datos personales --}}
             <div class="row" style="padding:0px;">
                 <div class="col">
                     <div class="accordion" id="accordionExample">
@@ -48,7 +40,6 @@
                             <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
                                 data-bs-parent="#accordionExample">
                                 <div class="accordion-body">
-
                                     <div class="container">
                                         <div class="row my-3">
                                             <div class="col">
@@ -58,19 +49,19 @@
                                         <div class="row my-1">
                                             <div class="col-md-6 col-xl-3 col-12 my-2">
                                                 <h5 class="mb-1"><b>Fecha de nacimiento: </b></h5>
-                                                {{ $perfil->fecha_nac ?? 'Sin fecha de nacimiento' }}
+                                                {{ $perfil->fechaNacimiento }}
                                             </div>
                                             <div class="col-md-6 col-xl-3 col-6 my-2">
                                                 <h5 class="mb-1"><b>Edad: </b></h5>
-                                                {{ $perfil->edad ? $perfil->edad . ' años' : 'Sin edad' }}
+                                                {{ $perfil->edad }}
                                             </div>
                                             <div class="col-md-6 col-xl-3 col-6 my-2">
                                                 <h5 class="text-capitalize mb-1"><b>Género: </b></h5>
-                                                {{ $perfil->genero->genero ?? 'Sin género' }}
+                                                {{ $perfil->genero }}
                                             </div>
                                             <div class="col-md-6 col-xl-3 col-6 my-2">
                                                 <h5 class="text-capitalize mb-1"><b>País: </b></h5>
-                                                {{ $perfil->pais->pais ?? 'Sin pais' }}
+                                                {{ $perfil->pais }}
                                             </div>
                                             <div class="col-md-6 col-xl-3 col-6 my-2">
                                                 <h5 class="mb-1"><b>Teléfono: </b></h5>
@@ -78,56 +69,41 @@
                                             </div>
                                             <div class="col-md-6 col-xl-3 col-12 my-2">
                                                 <h5 class="mb-1"><b>Especialidad: </b></h5>
-                                                {{ $perfil->especialidad->especialidad ?? 'Sin especialidad' }}
+                                                {{ $perfil->especialidad }}
                                             </div>
                                         </div>
                                         @if ($perfil->cat_paises_id == 1)
-                                            <div class="row my-1">
-                                                <div class="col-12 col-xl-7 col-lg-7 my-2">
-                                                    <h5><b>Colegio al que pertenece: </b></h5>
-                                                    @if ($perfil->colegio)
-                                                        <span style="white-space:initial;text-align:left"
-                                                            class="badge mt-1 fs-6 p-2">
-                                                            {{ $perfil->colegio }} | {{ $perfil->clave_colegio }}
-                                                        </span>
-                                                    @else
-                                                        {{ 'Sin Colegio' }}
-                                                    @endif
-                                                </div>
-                                                <div class="col-12 col-xl-5 col-lg-5 my-2">
-                                                    <h5><b>Constancia de situación fiscal: </b></h5>
-                                                    @if ($archivoUsuario)
-                                                        <a href="{{ asset('files/pdf/cfi/CFI_' . $perfil->id . '.pdf') }}"
-                                                            type="button" class="btn btn-download mt-1" target="_BLANK">
-                                                            Descargar <i class="fa fa-file-pdf" aria-hidden="true"></i>
-                                                        </a>
-                                                    @else
-                                                        {{ 'Sin constancia de situación fiscal' }}
-                                                    @endif
-
+                                            <div class="col-12 col-xl-5 col-lg-5 my-2">
+                                                <h5>Constancia de situación fiscal:</h5>
+                                                @if (file_exists(base_path() . 'public_html/files/pdf/cfi/CFI_' . $perfil->id . '.pdf'))
+                                                    <a href="{{ asset('files/pdf/cfi/CFI_' . $perfil->id . '.pdf') }}"
+                                                        class="btn btn-info mt-1 text-decoration-none" target="_BLANK">
+                                                        Descargar <i class="fa fa-file-pdf" aria-hidden="true"></i>
+                                                    </a>
+                                                @else
+                                                    {{ 'Sin constancia de situación fiscal' }}
+                                                @endif
                                             </div>
-                                        </div>
-                                    @endif
-                                    <div class="row my-2">
-
-                                        <div class="col">
-                                            <div class="button-group float-end">
-                                                <button type="button" class="btn btn-gradient-primary"
-                                                    data-bs-toggle="modal" data-bs-target="#staticBackdrop1">
-                                                    Actualizar datos
-                                                </button>
-                                                <button type="button" class="btn btn-gradient-primary"
-                                                    data-bs-toggle="modal" data-bs-target="#staticBackdrop2">
-                                                    Cambiar contraseña
-                                                </button>
+                                        @endif
+                                        <div class="row my-2">
+                                            <div class="col">
+                                                <div class="button-group float-end">
+                                                    <button type="button" class="btn btn-gradient-primary"
+                                                        data-bs-toggle="modal" data-bs-target="#staticBackdrop1">
+                                                        Actualizar datos
+                                                    </button>
+                                                    <button type="button" class="btn btn-gradient-primary"
+                                                        data-bs-toggle="modal" data-bs-target="#staticBackdrop2">
+                                                        Cambiar contraseña
+                                                    </button>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    {{-- @if (isset($paquetePagado))
+                        {{-- @if (isset($paquetePagado))
                         <div class="accordion-item">
                             <h2 class="accordion-header" id="headingOne">
                                 <button class="accordion-button" type="button" data-bs-toggle="collapse"
@@ -204,11 +180,11 @@
 
                                 <div class="col-12 col-xl-3 col-lg-4 col-md-12">
                                     <label for="nombre" class="col-form-label">Nombre(s) <i
-                                            class="fa-solid fa-asterisk fa-2xs" style="color: #003cff;"></i></label>
+                                            class="fa-solid fa-asterisk fa-2xs text-danger"></i></label>
                                     <input id="nombre" type="text"
-                                        class="form-control @error('nombre') is-invalid @enderror text-capitalize"
-                                        name="nombre" value="{{ old('nombre', $perfil->nombre) }}" required
-                                        autocomplete="nombre" autofocus>
+                                        class="form-control @error('nombre') is-invalid @enderror" name="nombre"
+                                        value="{{ old('nombre', $perfil->nombre) }}" required autocomplete="nombre"
+                                        autofocus>
 
                                     @error('nombre')
                                         <span class="invalid-feedback" role="alert">
@@ -219,12 +195,11 @@
 
                                 <div class="col-12 col-xl-3 col-lg-4 col-md-6">
                                     <label for="paterno" class="col-form-label">Apellido paterno
-                                        <i class="fa-solid fa-asterisk fa-2xs" style="color: #003cff;"></i>
+                                        <i class="fa-solid fa-asterisk fa-2xs text-danger"></i>
                                     </label>
                                     <input id="paterno" type="text"
-                                        class="form-control @error('paterno') is-invalid @enderror text-capitalize"
-                                        name="paterno" value="{{ old('paterno', $perfil->paterno) }}" required
-                                        autocomplete="paterno">
+                                        class="form-control @error('paterno') is-invalid @enderror" name="paterno"
+                                        value="{{ old('paterno', $perfil->paterno) }}" required autocomplete="paterno">
 
                                     @error('paterno')
                                         <span class="invalid-feedback" role="alert">
@@ -236,12 +211,11 @@
 
                                 <div class="col-12 col-xl-3 col-lg-4 col-md-6">
                                     <label for="materno" class="col-form-label">Apellido materno
-                                        <i class="fa-solid fa-asterisk fa-2xs" style="color: #003cff;"></i>
+                                        <i class="fa-solid fa-asterisk fa-2xs text-danger"></i>
                                     </label>
                                     <input id="materno" type="text"
-                                        class="form-control @error('materno') is-invalid @enderror text-capitalize"
-                                        name="materno" value="{{ old('materno', $perfil->materno) }}" required
-                                        autocomplete="materno">
+                                        class="form-control @error('materno') is-invalid @enderror" name="materno"
+                                        value="{{ old('materno', $perfil->materno) }}" required autocomplete="materno">
 
                                     @error('materno')
                                         <span class="invalid-feedback" role="alert">
@@ -252,7 +226,7 @@
 
                                 <div class="col-12 col-xl-3 col-lg-4 col-md-6">
                                     <label for="fecha_nacimiento" class="col-form-label">Fecha de nacimiento
-                                        <i class="fa-solid fa-asterisk fa-2xs" style="color: #003cff;"></i>
+                                        <i class="fa-solid fa-asterisk fa-2xs text-danger"></i>
                                     </label>
                                     <input id="fecha_nacimiento" type="date" required
                                         class="form-control @error('fecha_nacimiento') is-invalid @enderror"
@@ -266,12 +240,11 @@
                                 </div>
 
                                 <div class="col-12 col-xl-3 col-lg-4 col-md-6">
-                                    <label for="pais" class="col-md-4 col-form-label">País<i
-                                            class="fa-solid fa-asterisk fa-2xs" style="color: #003cff;"></i></label>
-                                    <select id="pais" type="select"
-                                        class="form-select @error('pais') is-invalid @enderror text-capitalize"
+                                    <label for="pais" class="col-md-4 col-form-label">País <i
+                                            class="fa-solid fa-asterisk fa-2xs text-danger"></i></label>
+                                    <select id="pais" class="form-select @error('pais') is-invalid @enderror"
                                         name="pais" required>
-                                        <option value="">Seleccione</option>
+                                        <option value="" selected>Seleccione</option>
                                         <hr>
                                         @foreach ($paises as $pais)
                                             <option value="{{ $pais->id }}"
@@ -290,7 +263,7 @@
 
                                 <div class="col-12 col-xl-3 col-lg-4 col-md-6">
                                     <label for="telefono" class="col-form-label">Telefono
-                                        <i class="fa-solid fa-asterisk fa-2xs" style="color: #003cff;"></i>
+                                        <i class="fa-solid fa-asterisk fa-2xs text-danger"></i>
                                     </label>
                                     <input id="telefono" type="number"
                                         class="form-control @error('telefono') is-invalid @enderror" name="telefono"
@@ -306,7 +279,7 @@
 
                                 <div class="col-12 col-xl-3 col-lg-4 col-md-6">
                                     <label for="email" class="col-form-label">Correo eléctronico <i
-                                            class="fa-solid fa-asterisk fa-2xs" style="color: #003cff;"></i></label>
+                                            class="fa-solid fa-asterisk fa-2xs text-danger"></i></label>
                                     <input id="email" type="email"
                                         class="form-control @error('email') is-invalid @enderror" name="email"
                                         value="{{ old('email', $user->email) }}" required autocomplete="email" autofocus>
@@ -318,17 +291,18 @@
                                 </div>
                                 <div class="col-12 col-xl-3 col-lg-4 col-md-6">
                                     <label for="genero" class="col-md-4 col-form-label">Género
-                                        <i class="fa-solid fa-asterisk fa-2xs" style="color: #003cff;"></i>
+                                        <i class="fa-solid fa-asterisk fa-2xs text-danger"></i>
                                     </label>
                                     <select id="genero" class="form-control form-select" name="genero"
                                         autocomplete="genero" required>
-                                        <option value="">Seleccionar <i class="fa-solid fa-arrow-down-long"></i>
+                                        <option value="" selected>
+                                            Seleccionar
                                         </option>
                                         <hr>
                                         @foreach ($generos as $genero)
                                             <option value="{{ $genero->id }}"
                                                 {{ old('genero', $perfil->cat_genero_id) === $genero->id ? 'selected' : '' }}>
-                                                {{ $genero->genero }} |</option>
+                                                {{ $genero->genero }}</option>
                                         @endforeach
                                     </select>
                                     @error('genero')
@@ -339,11 +313,11 @@
                                 </div>
                                 <div class="col-12 col-xl-3 col-lg-4 col-md-6">
                                     <label for="especialidad" class="col-form-label">Especialidad <i
-                                            class="fa-solid fa-asterisk fa-2xs" style="color: #003cff;"></i></label>
+                                            class="fa-solid fa-asterisk fa-2xs text-danger"></i></label>
                                     <select id="especialidad"
                                         class="form-control form-select @error('especialidad') is-invalid @enderror"
                                         name="especialidad" required autocomplete="especialidad">
-                                        <option value="">Seleccionar <i class="fa-solid fa-arrow-down-long"></i>
+                                        <option value="" selected>Seleccionar
                                         </option>
                                         <hr>
                                         @foreach ($especialidades as $especialidad)
@@ -360,8 +334,8 @@
                                 </div>
 
                                 <div class="col-12 col-xl-3 col-lg-4 col-md-6" id="entidad_container">
-                                    <label for="entidad" class="col-form-label">Estado<i
-                                            class="fa-solid fa-asterisk fa-2xs" style="color: #003cff;"></i></label>
+                                    <label for="entidad" class="col-form-label">Estado <i
+                                            class="fa-solid fa-asterisk fa-2xs text-danger"></i></label>
                                     <select id="entidad" type="text"
                                         class="form-select @error('entidad') is-invalid @enderror" name="entidad" required
                                         autocomplete="entidad">
@@ -440,7 +414,8 @@
                                     @enderror
                                 </div>
                                 <div class="col-12">
-                                    <label for="password_confirmation" class="col-form-label">Confirmar Nueva Contraseña
+                                    <label for="password_confirmation" class="col-form-label">Confirmar Nueva
+                                        Contraseña
                                         <i class="fa-solid fa-asterisk fa-2xs" style="color: #003cff;"></i>
                                     </label>
                                     <input id="password_confirmation" type="password"
@@ -490,7 +465,45 @@
 @endsection
 @section('js')
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
+        $(document).ready(function() {
+            $('#nombre').on('input', function() {
+                this.value = this.value.split(' ').map(function(word) {
+                    return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+                }).join(' ');
+            });
+            $('#paterno').on('input', function() {
+                this.value = this.value.split(' ').map(function(word) {
+                    return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+                }).join(' ');
+            });
+            $('#paterno').on('input', function() {
+                this.value = this.value.split(' ').map(function(word) {
+                    return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+                }).join(' ');
+            });
+            $('#telefono').on('input', function() {
+                this.value = this.value.replace(/[^0-9]/g, '');
+            });
+
+            const selectPais = document.getElementById('pais');
+            console.log(selectPais);
+            const isMexico = selectPais.options[selectPais.selectedIndex].text.includes('México');
+            if (isMexico) {
+                document.getElementById('entidad_container').classList.remove('d-none');
+            } else {
+                document.getElementById('entidad_container').classList.remove('d-none');
+            }
+
+            selectPais.addEventListener('change', function() {
+                const isMexico = selectPais.options[selectPais.selectedIndex].text.includes('México');
+
+                if (isMexico) {
+                    document.getElementById('entidad_container').classList.remove('d-none');
+                } else {
+                    document.getElementById('entidad_container').classList.remove('d-none');
+                }
+            });
+
             $('.prueba1234').on('click', function(e) {
                 e.preventDefault();
                 $('.header-nav-feature').addClass('signin').removeClass('signup').removeClass('recover');
@@ -500,10 +513,9 @@
                     document.querySelector('.header-nav-features-dropdown').classList.add('show');
                 } else {
 
-            document.querySelector('.header-nav-features-dropdown').classList.remove('show');
-        }
-    });
-});
-   
-</script>
+                    document.querySelector('.header-nav-features-dropdown').classList.remove('show');
+                }
+            });
+        })
+    </script>
 @endsection

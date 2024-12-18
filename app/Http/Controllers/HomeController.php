@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Especialidad;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -23,6 +24,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $especialidades = Especialidad::where('estatus', 1)->get(['id', 'especialidad']);
+        return view('home', compact('especialidades'));
     }
 }
