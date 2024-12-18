@@ -7962,7 +7962,10 @@ window.theme.fn = {
 					});
 				});
 
+			
+
 				$('#headerSignUp').on('click', e => {
+					
 					e.preventDefault();
 					self.$wrapper.addClass('signup').removeClass('signin').removeClass('recover');
 					self.$wrapper.find('.signup-form input:first').focus();
@@ -8382,33 +8385,37 @@ window.theme.fn = {
 				});
 
                 // Top Features
-                $header.find('.header-nav-features-toggle').on('click', function(e) {
-					e.preventDefault();
+				// edicion
+                // $header.find('.header-nav-features-toggle').on('click', function(e) {
+				// 	e.preventDefault();
 
-					const $toggleParent = $(this).parent();
+				// 	const $toggleParent = $(this).parent();
 
-					if (!$(this).siblings('.header-nav-features-dropdown').hasClass('show')) {
+				// 	if (!$(this).siblings('.header-nav-features-dropdown').hasClass('show')) {
 
-						const $dropdown = $(this).siblings('.header-nav-features-dropdown');
+				// 		const $dropdown = $(this).siblings('.header-nav-features-dropdown');
 
-						$('.header-nav-features-dropdown.show').removeClass('show');
+				// 		$('.header-nav-features-dropdown.show').removeClass('show');
 
-						$dropdown.addClass('show');
+				// 		$dropdown.addClass('show');
 
-						$(document).off('click.header-nav-features-toggle').on('click.header-nav-features-toggle', ({target}) => {
-							if (!$toggleParent.is(target) && $toggleParent.has(target).length === 0) {
-								$('.header-nav-features-dropdown.show').removeClass('show');
-							}
-						});
+				// 		$(document).off('click.header-nav-features-toggle').on('click.header-nav-features-toggle', ({target}) => {
+				// 			if (!$toggleParent.is(target) && $toggleParent.has(target).length === 0) {
+				// 				$('.header-nav-features-dropdown.show').removeClass('show');
+				// 			}
+				// 		});
 
-						if ($(this).attr('data-focus')) {
-							$('#' + $(this).attr('data-focus')).focus();
-						}
+				// 		if ($(this).attr('data-focus')) {
+				// 			$('#' + $(this).attr('data-focus')).focus();
+				// 		}
 
-					} else {
-						$(this).siblings('.header-nav-features-dropdown').removeClass('show');
-					}
-				});
+				// 	} else {
+				// 		$(this).siblings('.header-nav-features-dropdown').removeClass('show');
+				// 	}
+				// });
+
+
+
 
                 // Hamburguer Menu
                 const $hamburguerMenuBtn = $('.hamburguer-btn:not(.side-panel-toggle)'), $hamburguerSideHeader = $('#header.side-header, #header.side-header-overlay-full-screen');

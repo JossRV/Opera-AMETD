@@ -25,4 +25,5 @@
 <!-- Examples -->
 <script src="{{ asset('assets/js/examples/examples.portfolio.js') }}"></script>
 
+
 @yield('js')
