@@ -40,9 +40,9 @@ class PerfilController extends Controller
 
         $perfil = Persona::where('id', $user->persona_id)->first();
 
-        // if ($perfil->fecha_nac) {
-        //     $perfil->edad = Carbon::createFromFormat('Y-m-d', $perfil->fecha_nac)->age;
-        // }
+        if ($perfil->fecha_nac) {
+            $perfil->edad = Carbon::createFromFormat('Y-m-d', $perfil->fecha_nac)->age;
+        }
 
         // if ($perfil->cat_categoria_id) {
         //     $perfil->categoria = Categoria::where('id', $perfil->cat_categoria_id)->first(['categoria'])->categoria;
@@ -56,7 +56,6 @@ class PerfilController extends Controller
         //     $perfil->pais = $perfil->pais->pais;
         // }
 
-        return view('modules.personas.perfil', compact('user','perfil', 'especialidades', 'paises', 'estados','exhibiciones','formas','generos'));
 
         // } else {
         //     if (!$user->hasRole('Becador')) {
@@ -64,6 +63,7 @@ class PerfilController extends Controller
         //     }
         //     return redirect()->route('becas.index')->with('bienvenida', true);
         // }
+        return view('modules.personas.perfil', compact('user', 'perfil', 'especialidades', 'paises', 'estados', 'exhibiciones', 'formas', 'generos'));
     }
 
     // Edita los datos personales del perfil
@@ -85,7 +85,7 @@ class PerfilController extends Controller
             'email' => ['required', 'email', 'unique:users,email,' . $user->id, 'regex:/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/'],
             'genero' => ['required'],
             'especialidad' => ['required'],
-            'entidad' => ['sometimes'],    
+            'entidad' => ['sometimes'],
         ]);
 
         try {
@@ -106,7 +106,7 @@ class PerfilController extends Controller
                 'cat_estados_id' => $request['entidad'],
             ]);
 
-            
+
 
             return redirect()->route('perfil.index')->with('success', 'El cambio de datos se realizo con exito');
         } catch (\Exception $e) {
