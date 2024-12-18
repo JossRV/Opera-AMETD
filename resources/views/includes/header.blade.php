@@ -8,7 +8,7 @@
                             <div class="header-logo">
                                 <a href="index.html">
                                     <img alt="AMETD" width="142"
-                                        src="https://ametd.online/img/slides/logoAmetd.png">
+                                        src="https://ametd.online/assets/img/slides/logoAmetd.png">
                                 </a>
                             </div>
                         </div>
