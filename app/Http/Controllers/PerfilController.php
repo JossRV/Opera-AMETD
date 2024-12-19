@@ -14,25 +14,30 @@ use App\Models\Especialidad;
 use App\Models\Exhibicion;
 use App\Models\FormaPago;
 use App\Models\Genero;
+use App\Models\Orden;
 use Illuminate\Support\Facades\DB;
 
 class PerfilController extends Controller
 {
     // usuario autenticado
     /** @var \App\Models\User $user */
-    private $user = Auth::user();
+    private $user;
     // construcctor de autenticacion
     public function __construct()
     {
         $this->middleware('auth')->except(['registrado', 'validacion']);
+        $this->middleware(function ($request, $next) {
+            $this->user = Auth::user();  // Asignación de $user en el middleware
+            return $next($request);
+        });
     }
     // pagina de inicio
     public function index()
     {
         // verifica si es algún administrador
-        if ($this->user->hasRole('Becador')) {
+        if ($this->user && $this->user->hasRole('Becador')) {
             return redirect()->route('becas.index')->with('bienvenida', true);
-        } elseif (!$this->user->hasRole(['No Socio', 'Socio'])) {
+        } elseif ($this->user && !$this->user->hasRole(['No Socio', 'Socio'])) {
             return view('modules.personas.bienvenida');
         }
 
@@ -62,7 +67,7 @@ class PerfilController extends Controller
         if (isset($perfil->cat_especialidad_id)) {
             $perfil->especialidad = $perfil->especialidad()->value('especialidad');
         }
-        if (isset($user->email)) {
+        if (isset($this->user->email)) {
             $perfil->correo = $this->user->email;
         }
         if (isset($perfil->cat_genero_id)) {
@@ -72,7 +77,10 @@ class PerfilController extends Controller
             $perfil->pais = $perfil->pais()->value('pais');
         }
 
-        return view('modules.personas.perfil', compact('user', 'perfil', 'especialidades', 'paises', 'estados', 'exhibiciones', 'formas', 'generos'));
+        // ordenes del diplomado
+        $diplomados = Orden::where('estatus', 1)->get();
+
+        return view('modules.personas.perfil', compact('perfil', 'especialidades', 'paises', 'estados', 'exhibiciones', 'formas', 'generos', 'diplomados'));
     }
     // Edita los datos personales del perfil
     public function editPerfil(Request $request)
@@ -112,7 +120,7 @@ class PerfilController extends Controller
                 'telefono' => $request['telefono'],
                 'cat_genero_id' => $request['genero'],
                 'cat_especialidad_id' => $request['especialidad'],
-                'cat_estados_id' => $request['entidad'],
+                'cat_estados_id' => $request['entidad'] ?? null,
             ]);
 
             // ejecuta y termina proceso
