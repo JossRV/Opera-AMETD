@@ -29,9 +29,8 @@
                         </div>
                     </div>
                 </div>
-            @endif --}}
-            {{-- acordion de datos personales --}}
-            <div class="row" style="padding:0px;">
+            @endif
+            <div class="row">
                 <div class="col">
                     <div class="accordion" id="accordionExample">
                         <div class="accordion-item">
@@ -608,9 +607,23 @@
             });
 
             $('.prueba1234').on('click', function(e) {
+                console.log('hola');
                 e.preventDefault();
                 $('.header-nav-feature').addClass('signin').removeClass('signup').removeClass('recover');
                 $('.header-nav-feature').find('.signin-form input:first').focus();
+                if (!$('.header-nav-features-dropdown').hasClass('show')) {
+                    console.log('prueba');
+                    document.querySelector('.header-nav-features-dropdown').classList.add('show');
+                } else {
+
+                    document.querySelector('.header-nav-features-dropdown').classList.remove('show');
+                }
+            });
+
+
+
+            $('.cerrarmodal').on('click', function(e) {
+                e.preventDefault();
                 if (!$('.header-nav-features-dropdown').hasClass('show')) {
                     console.log('prueba');
                     document.querySelector('.header-nav-features-dropdown').classList.add('show');
