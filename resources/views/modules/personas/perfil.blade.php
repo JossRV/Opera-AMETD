@@ -29,8 +29,9 @@
                         </div>
                     </div>
                 </div>
-            @endif
-            <div class="row">
+            @endif --}}
+            {{-- acordion de datos personales --}}
+            <div class="row" style="padding:0px;">
                 <div class="col">
                     <div class="accordion" id="accordionExample">
                         <div class="accordion-item">
@@ -165,8 +166,7 @@
                 </div>
             </div>
             {{-- pagos del diplomado --}}
-            <div id="diplomado" class="container" hidden></div>
-            <div class="card my-3">
+            <div id="diplomado" class="card my-3">
                 <div class="card-header bg-dark text-white">
                     <h4 class="card-title m-auto">Compra el VIII Diplomado</h4>
                 </div>
@@ -518,7 +518,7 @@
                                     <p class="my-2">CLABE: 012180001109282678</p>
                                     <p class="my-2">Al completar la transferencia de fondos le solicitamos enviar su
                                         comprobante con su nombre completo al
-                                        correo: inscripciones@fmcaac.mx o al WhatsApp 5591974810.</p>
+                                        correo: inscripciones@fmcaac.mx o al WhatsApp 5591974810.</p>
                                 </div>
                                 <div class="col-12 col-lg-6 my-lg-auto my-3">
                                     <label class="fs-4 form-label">Subir comprobante</label>
@@ -607,7 +607,6 @@
             });
 
             $('.prueba1234').on('click', function(e) {
-                console.log('hola');
                 e.preventDefault();
                 $('.header-nav-feature').addClass('signin').removeClass('signup').removeClass('recover');
                 $('.header-nav-feature').find('.signin-form input:first').focus();
@@ -620,8 +619,6 @@
                 }
             });
 
-
-
             $('.cerrarmodal').on('click', function(e) {
                 e.preventDefault();
                 if (!$('.header-nav-features-dropdown').hasClass('show')) {
@@ -631,6 +628,10 @@
 
                     document.querySelector('.header-nav-features-dropdown').classList.remove('show');
                 }
+            });
+
+            document.getElementById("diplomado").scrollIntoView({
+                behavior: "smooth"
             });
 
             pago = (forma, idDiplomado) => {
