@@ -24,6 +24,8 @@
 <script src="{{ asset('assets/js/theme.init.js') }}"></script>
 <!-- Examples -->
 <script src="{{ asset('assets/js/examples/examples.portfolio.js') }}"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.2/dist/sweetalert2.min.js"></script>
 
 
 @yield('js')
+@stack('js')
