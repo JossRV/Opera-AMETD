@@ -53,12 +53,12 @@
                                                 </a>
                                             </li>
                                         @else
-                                            <li>
+                                            {{-- <li>
                                                 <a class="nav-link" data-hash data-hash-offset="0" data-hash-offset-lg="68"
                                                     href="{{ route('landing.diplomado') }}">
                                                     Más información
                                                 </a>
-                                            </li>
+                                            </li> --}}
                                             <li>
                                                 <a class="nav-link" data-hash data-hash-offset="0" data-hash-offset-lg="68"
                                                     href="{{ route('perfil.index') }}">

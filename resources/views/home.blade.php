@@ -345,20 +345,21 @@
                 "marker",
             );
             const map = new Map(document.getElementById("googlemaps"), {
+               
                 zoom: 17,
                 center: {
-                    lat: 19.360356,
-                    lng: -99.141341
-
+                    lat: 19.380352629717724,
+                    lng: -99.18089703120975
+                    
                 },
                 mapId: "AIzaSyBAWXA8qemB0EvSV8DkuuTzIBjhl5U6nVQ",
             });
             const markers = [{
                 position: {
-                    lat: 19.360356,
-                    lng: -99.141341
+                    lat: 19.380352629717724,
+                    lng: -99.18089703120975
                 },
-                title: "AMETD<br>Av. Ejército Nacional Mexicano 613,<br> Polanco, Granada, Miguel Hidalgo, <brC.P.11510 Ciudad de México, CDMX",
+                title: "AMETD C. Cleveland 33-303, Noche Buena,\n Benito Juárez, 03720 Ciudad de México, CDMX"
             }];
 
             const infoWindow = new InfoWindow();

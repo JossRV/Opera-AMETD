@@ -27,24 +27,7 @@
                                                 Home
                                             </a>
                                         </li>
-                                        {{-- <li>
-                                            <a class="nav-link" data-hash data-hash-offset="0" data-hash-offset-lg="68"
-                                                href="#programa">
-                                                Programa
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="nav-link" data-hash data-hash-offset="0" data-hash-offset-lg="68"
-                                                href="#profesores">
-                                                Profesores
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="nav-link" data-hash data-hash-offset="0" data-hash-offset-lg="68"
-                                                href="#contact">
-                                                Contacto
-                                            </a>
-                                        </li> --}}
+                                     
                                         @guest
                                             <li>
                                                 <a class="nav-link" data-hash data-hash-offset="0" data-hash-offset-lg="68"
@@ -53,12 +36,6 @@
                                                 </a>
                                             </li>
                                         @else
-                                            {{-- <li>
-                                                <a class="nav-link" data-hash data-hash-offset="0" data-hash-offset-lg="68"
-                                                    href="{{ route('landing.diplomado') }}">
-                                                    Más información
-                                                </a>
-                                            </li> --}}
                                             <li>
                                                 <a class="nav-link" data-hash data-hash-offset="0" data-hash-offset-lg="68"
                                                     href="#diplomado">
