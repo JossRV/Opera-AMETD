@@ -86,7 +86,8 @@
                                     </a>
                                     <div class="header-nav-features-dropdown header-nav-features-dropdown-mobile-fixed header-nav-features-dropdown-force-right"
                                         id="headerTopUserDropdown">
-                                        <i style="float: right;font-size:20px;cursor:pointer" class="fa-solid fa-xmark cerrarmodal"></i>
+                                        <i style="float: right;font-size:20px;cursor:pointer"
+                                            class="fa-solid fa-xmark cerrarmodal"></i>
                                         @guest
                                             {{-- iniciar sesión --}}
                                             <div class="signin-form">
@@ -228,19 +229,15 @@
                                                                     class="form-control form-select form-control-lg @error('especialidad') is-invalid @enderror"
                                                                     name="especialidad" required
                                                                     autocomplete="especialidad">
-                                                                    <option value="">
+                                                                    <option value="" selected>
                                                                         Seleccionar
                                                                     </option>
                                                                     <hr>
-                                                                    <option value="1">
-                                                                        Médico Especialista
-                                                                    </option>
-                                                                    <option value="2">
-                                                                        Médico Residente
-                                                                    </option>
-                                                                    <option value="3">
-                                                                        Otros profesionales de la salud
-                                                                    </option>
+                                                                    @foreach ($especialidades as $especialidad)
+                                                                        <option value="{{$especialidad->id}}" {{old('especialidad') == $especialidad->id ? 'seelcted' : ''}}>
+                                                                            {{$especialidad->especialidad}}
+                                                                        </option>
+                                                                    @endforeach
                                                                 </select>
                                                                 @error('especialidad')
                                                                     <span class="invalid-feedback" role="alert">
@@ -285,7 +282,7 @@
 
                                                     </div>
 
-                                                  
+
                                                     <div class="row">
                                                         <div class="col">
                                                             <div class="form-group">
@@ -402,7 +399,6 @@
         </div>
     </div>
     <style>
-
         .signup-form {
             width: 770px;
         }
@@ -420,9 +416,9 @@
 
             .signin-form {
                 width: 100% !important;
-        }
+            }
 
-            
+
         }
     </style>
 </header>
